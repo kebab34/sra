@@ -1,0 +1,104 @@
+/* ═══════════════════════════════════════════════════════════════
+   THÈME — SMOKE  (gris fumée + argent & platine, ultra-minimaliste)
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme="smoke"] {
+  --accent: #a8b8c8;
+  --accent-hover: #8898a8;
+  --bg-primary: #111318;
+  --bg-secondary: #0c0e12;
+  --text-primary: #d8dde8;
+  --text-secondary: #5a6070;
+  --border: rgba(168,184,200,0.2);
+  --hover-bg: rgba(168,184,200,0.06);
+}
+[data-theme="smoke"] body,
+[data-theme="smoke"] .app-container { background-color: #111318; }
+[data-theme="smoke"] ::-webkit-scrollbar-track { background: #0c0e12; }
+[data-theme="smoke"] ::-webkit-scrollbar-thumb { background: #2a3040; }
+
+[data-theme="smoke"] .header { background-color: rgba(12,14,18,0.97); border-bottom-color: rgba(168,184,200,0.2); }
+[data-theme="smoke"] .nav-link { color: #d8dde8; }
+[data-theme="smoke"] .nav-link:hover { color: #a8b8c8; }
+[data-theme="smoke"] .nav-arrow { color: #a8b8c8; }
+[data-theme="smoke"] .dropdown-menu { background-color: rgba(12,14,18,0.99); border-color: rgba(168,184,200,0.15); }
+[data-theme="smoke"] .dropdown-item { color: #8898a8; }
+[data-theme="smoke"] .dropdown-item:hover { color: #a8b8c8; background: rgba(168,184,200,0.06); }
+[data-theme="smoke"] .dropdown-divider { background: rgba(168,184,200,0.15); }
+[data-theme="smoke"] .mobile-nav { background: rgba(12,14,18,0.99); }
+[data-theme="smoke"] .mobile-link { color: #d8dde8; border-color: rgba(168,184,200,0.08); }
+[data-theme="smoke"] .mobile-link:hover { color: #a8b8c8; }
+[data-theme="smoke"] .mobile-section { border-color: rgba(168,184,200,0.08); }
+[data-theme="smoke"] .mobile-section-toggle { color: #d8dde8; }
+[data-theme="smoke"] .mobile-section-toggle svg { color: #a8b8c8; }
+[data-theme="smoke"] .mobile-sublink { color: #5a6070; }
+[data-theme="smoke"] .mobile-sublink:hover { color: #a8b8c8; }
+
+[data-theme="smoke"] .luxury-carousel { background: #0c0e12; }
+[data-theme="smoke"] .cinematic-vignette {
+  background:
+    radial-gradient(ellipse at center, transparent 40%, rgba(4,5,8,0.85) 100%),
+    linear-gradient(to bottom, rgba(4,5,8,0.4) 0%, transparent 22%, transparent 78%, rgba(4,5,8,0.65) 100%);
+}
+[data-theme="smoke"] .particle { background: radial-gradient(circle, #2a3040 0%, transparent 70%); }
+[data-theme="smoke"] .frame-corner::before,
+[data-theme="smoke"] .frame-corner::after { background: linear-gradient(90deg, #2a3040, #a8b8c8, #2a3040); }
+[data-theme="smoke"] .line-left,
+[data-theme="smoke"] .line-right { background: linear-gradient(90deg, transparent, #3a4858, transparent); }
+[data-theme="smoke"] .line-diamond { color: #a8b8c8; }
+[data-theme="smoke"] .luxury-cta .cta-text { color: #a8b8c8; }
+[data-theme="smoke"] .cta-border { border-color: #a8b8c8; }
+[data-theme="smoke"] .luxury-cta:hover .cta-border { background: linear-gradient(135deg, #2a3040, #a8b8c8, #2a3040); }
+[data-theme="smoke"] .luxury-cta:hover .cta-text { color: #111318; }
+[data-theme="smoke"] .indicator-progress::after { background: #a8b8c8; }
+[data-theme="smoke"] .luxury-indicator.active .indicator-number { color: #a8b8c8; }
+[data-theme="smoke"] .scroll-line { background: linear-gradient(to bottom, #a8b8c8, transparent); }
+[data-theme="smoke"] .indicator-total .current { color: #a8b8c8; }
+
+[data-theme="smoke"] .section { background-color: #111318; }
+[data-theme="smoke"] .section-title { color: #d8dde8; }
+[data-theme="smoke"] .section-subtitle { color: #5a6070; }
+[data-theme="smoke"] .gold-line,
+[data-theme="smoke"] .gold-line-footer { background: linear-gradient(90deg, transparent, #3a4858, transparent); }
+[data-theme="smoke"] .dark-section { background-color: #0c0e12; }
+[data-theme="smoke"] .section-subtitle-light { color: #5a6070; }
+[data-theme="smoke"] .room-card .room-line { background: #a8b8c8; }
+[data-theme="smoke"] .explore-button { color: #a8b8c8; border-color: #a8b8c8; }
+[data-theme="smoke"] .cta-section { background-color: #0c0e12; border-color: rgba(168,184,200,0.2); }
+[data-theme="smoke"] .cta-title { color: #d8dde8; }
+[data-theme="smoke"] .cta-text { color: #5a6070; }
+[data-theme="smoke"] .view-all-btn { border-color: #a8b8c8; color: #a8b8c8; }
+[data-theme="smoke"] .view-all-btn:hover { background: #a8b8c8; color: #111318; }
+[data-theme="smoke"] .footer { background-color: #080a0c; }
+[data-theme="smoke"] .footer-tagline { color: #1a2028; }
+[data-theme="smoke"] .footer-title { color: #a8b8c8; }
+[data-theme="smoke"] .footer-text { color: #2a3040; }
+[data-theme="smoke"] .social-link { color: #2a3040; }
+[data-theme="smoke"] .social-link:hover { color: #a8b8c8; }
+[data-theme="smoke"] .footer-bottom { border-color: #141820; }
+[data-theme="smoke"] .footer-copy { color: #1a2028; }
+[data-theme="smoke"] .contact-page { background-color: #111318; }
+[data-theme="smoke"] .contact-info,
+[data-theme="smoke"] .contact-form-container { background-color: #0c0e12; border-color: rgba(168,184,200,0.15); }
+[data-theme="smoke"] .contact-title { color: #d8dde8; }
+[data-theme="smoke"] .contact-subtitle { color: #5a6070; }
+[data-theme="smoke"] .info-title,
+[data-theme="smoke"] .form-title { color: #d8dde8; border-color: rgba(168,184,200,0.15); }
+[data-theme="smoke"] .info-content h4 { color: #a8b8c8; }
+[data-theme="smoke"] .info-content p,
+[data-theme="smoke"] .info-content a { color: #5a6070; }
+[data-theme="smoke"] .info-content a:hover { color: #a8b8c8; }
+[data-theme="smoke"] .horaire-row .jour { color: #5a6070; }
+[data-theme="smoke"] .horaire-row .heures { color: #d8dde8; }
+[data-theme="smoke"] .horaire-row { border-color: rgba(168,184,200,0.07); }
+[data-theme="smoke"] .form-group label { color: #5a6070; }
+[data-theme="smoke"] .form-group input,
+[data-theme="smoke"] .form-group textarea { background: #111318; border-color: #181c24; color: #d8dde8; }
+[data-theme="smoke"] .form-group input:focus,
+[data-theme="smoke"] .form-group textarea:focus { border-color: #a8b8c8; }
+[data-theme="smoke"] .submit-btn { background: #2a3848; color: #d8dde8; }
+[data-theme="smoke"] .submit-btn:hover:not(:disabled) { background: #1a2838; }
+[data-theme="smoke"] .info-icon { background: rgba(168,184,200,0.08); }
+[data-theme="smoke"] .info-icon svg { color: #a8b8c8; }
+[data-theme="smoke"] .collections-page,
+[data-theme="smoke"] .collections-filters,
+[data-theme="smoke"] .filters-sidebar { background-color: #111318; }
