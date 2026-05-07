@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 const SEO = ({ title, description, canonical, image }) => {
   const siteName = 'SRA Global Trading';
   const defaultDesc = 'SRA Global Trading — Tiles, sanitary ware, bathroom furniture, custom kitchens, joinery and pergolas. Showroom in Dubai, UAE.';
-  const defaultImage = 'https://www.sraglobaltrading.com/sra.svg';
+  const defaultImage = 'https://www.sraglobaltrading.com/sra2.png';
   const baseUrl = 'https://www.sraglobaltrading.com';
 
   const fullTitle = title ? `${title} | ${siteName}` : `${siteName} — Tiles & Interior — Dubai, UAE`;

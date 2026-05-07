@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-column">
-          <img src="/sra.svg" alt="SRA Global Trading" className="logo" style={{ height: '55px', width: 'auto', marginBottom: '15px', objectFit: 'contain' }} />
+          <img src="/sra2.png" alt="SRA Global Trading" className="logo" style={{ height: '55px', width: 'auto', marginBottom: '15px', objectFit: 'contain' }} />
           <p className="footer-tagline">{t('footer.tagline')}</p>
           <div className="gold-line"></div>
         </div>
