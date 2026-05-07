@@ -41,7 +41,7 @@ const Header = () => {
     <header className="header">
       <div className="header-content">
         <Link to="/" onClick={closeMenu}>
-          <img src="/sra.svg" alt="SRA Global Trading" className="logo" />
+          <img src="/sra.jpeg" alt="SRA Global Trading" className="logo" />
         </Link>
 
         {/* Desktop nav */}
