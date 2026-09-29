@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import SEO from '../SEO/SEO';
 import useReveal from '../../hooks/useReveal';
 import useDragScroll from '../../hooks/useDragScroll';
@@ -15,6 +16,8 @@ const Reveal = ({ as: Tag = 'div', className = '', children }) => {
 };
 
 const ProjectSection = ({ project }) => {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.startsWith('fr') ? 'fr' : 'en';
   const { trackRef, dragHandlers } = useDragScroll();
 
   return (
@@ -25,9 +28,9 @@ const ProjectSection = ({ project }) => {
         style={{ backgroundImage: `url(${project.heroImage})` }}
       >
         <div className="project-hero-overlay">
-          <span className="project-status">{project.status}</span>
+          <span className="project-status">{project.status[lang]}</span>
           <h1 className="project-hero-title">{project.name}</h1>
-          <p className="project-hero-location">{project.location} — {project.address}</p>
+          <p className="project-hero-location">{project.location} — {project.address[lang]}</p>
         </div>
       </div>
 
@@ -35,11 +38,11 @@ const ProjectSection = ({ project }) => {
       <div className="section project-intro">
         <Reveal className="section-header">
           <div className="gold-line"></div>
-          <h2 className="section-title">Un lieu riche en histoire</h2>
+          <h2 className="section-title">{t('realisations.historyTitle')}</h2>
         </Reveal>
-        <Reveal as="p" className="project-lead">{project.intro}</Reveal>
+        <Reveal as="p" className="project-lead">{project.intro[lang]}</Reveal>
         {project.history.map((paragraph, i) => (
-          <Reveal as="p" className="project-paragraph" key={i}>{paragraph}</Reveal>
+          <Reveal as="p" className="project-paragraph" key={i}>{paragraph[lang]}</Reveal>
         ))}
       </div>
 
@@ -48,7 +51,7 @@ const ProjectSection = ({ project }) => {
         {project.stats.map((stat, i) => (
           <div className="project-stat" key={i}>
             <span className="project-stat-value">{stat.value}</span>
-            <span className="project-stat-label">{stat.label}</span>
+            <span className="project-stat-label">{stat.label[lang]}</span>
           </div>
         ))}
       </Reveal>
@@ -57,14 +60,14 @@ const ProjectSection = ({ project }) => {
       <div className="section">
         <Reveal className="section-header">
           <div className="gold-line"></div>
-          <h2 className="section-title">4 zones, un pôle urbain majeur</h2>
+          <h2 className="section-title">{t('realisations.zonesTitle')}</h2>
         </Reveal>
         <div className="project-zones">
           {project.zones.map((zone, i) => (
             <Reveal as="div" className="project-zone-card" key={i}>
-              <span className="project-zone-value">{zone.value}</span>
-              <h3 className="project-zone-title">{zone.title}</h3>
-              <p className="project-zone-detail">{zone.detail}</p>
+              <span className="project-zone-value">{zone.value[lang]}</span>
+              <h3 className="project-zone-title">{zone.title[lang]}</h3>
+              <p className="project-zone-detail">{zone.detail[lang]}</p>
             </Reveal>
           ))}
         </div>
@@ -74,13 +77,13 @@ const ProjectSection = ({ project }) => {
       <div className="section">
         <Reveal className="section-header">
           <div className="gold-line"></div>
-          <h2 className="section-title">Le projet en images</h2>
+          <h2 className="section-title">{t('realisations.imagesTitle')}</h2>
         </Reveal>
         <div className="project-renders-grid">
           {project.renders.map((render, i) => (
             <div className="project-render" key={i}>
-              <img src={render.src} alt={render.caption} loading="lazy" />
-              <span className="project-render-caption">{render.caption}</span>
+              <img src={render.src} alt={render.caption[lang]} loading="lazy" />
+              <span className="project-render-caption">{render.caption[lang]}</span>
             </div>
           ))}
         </div>
@@ -90,8 +93,8 @@ const ProjectSection = ({ project }) => {
       <div className="section">
         <Reveal className="section-header">
           <div className="gold-line"></div>
-          <h2 className="section-title">Le chantier avance</h2>
-          <p className="section-subtitle">Faites glisser pour suivre l'évolution des travaux</p>
+          <h2 className="section-title">{t('realisations.progressTitle')}</h2>
+          <p className="section-subtitle">{t('realisations.progressSubtitle')}</p>
         </Reveal>
 
         {project.video && (
@@ -110,8 +113,8 @@ const ProjectSection = ({ project }) => {
         <div className="project-progress-track" ref={trackRef} {...dragHandlers}>
           {project.siteProgress.map((photo, i) => (
             <div className="project-progress-card" key={i} draggable={false}>
-              <img src={photo.src} alt={photo.caption} loading="lazy" draggable={false} />
-              <span className="project-progress-caption">{photo.caption}</span>
+              <img src={photo.src} alt={photo.caption[lang]} loading="lazy" draggable={false} />
+              <span className="project-progress-caption">{photo.caption[lang]}</span>
             </div>
           ))}
         </div>
@@ -119,11 +122,11 @@ const ProjectSection = ({ project }) => {
 
       {/* Promoter + CTA */}
       <Reveal className="project-footer">
-        <p className="project-promoter">Développé par {project.promoter}</p>
+        <p className="project-promoter">{t('realisations.developedBy')} {project.promoter}</p>
         <div className="project-cta-group">
           {project.brochure && (
             <a href={project.brochure} target="_blank" rel="noopener noreferrer" className="view-all-btn">
-              Télécharger la brochure
+              {t('realisations.downloadBrochure')}
             </a>
           )}
         </div>
@@ -133,17 +136,19 @@ const ProjectSection = ({ project }) => {
 };
 
 const RealisationsPage = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <SEO
-        title="Nos Réalisations — Projets en cours"
-        description="Découvrez Village Notre Père à Abidjan, projet immobilier mixte de 23 000 m² réunissant hôtellerie, bureaux, commerces et restaurants."
+        title="Our Projects — Ongoing Developments"
+        description="Discover Village Notre Père in Abidjan, a 23,000 sqm mixed-use development combining hospitality, offices, retail and restaurants."
         canonical="/realisations"
       />
       <div className="section-header realisations-header">
         <div className="gold-line"></div>
-        <h1 className="section-title">Nos Réalisations</h1>
-        <p className="section-subtitle">Des projets d'exception, au cœur de l'Afrique</p>
+        <h1 className="section-title">{t('realisations.pageTitle')}</h1>
+        <p className="section-subtitle">{t('realisations.pageSubtitle')}</p>
       </div>
 
       {projectsData.map((project) => (

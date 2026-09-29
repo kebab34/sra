@@ -185,6 +185,26 @@ const en = {
     'Poli': 'Polished',
     'Satiné': 'Satin',
   },
+
+  // ── Collections Showcase (HomePage) ───────────────────────────────────────────
+  collectionsShowcase: {
+    title: 'Collections Signature',
+    subtitle: 'Drag to explore our most iconic creations',
+    viewAll: 'View all our collections',
+  },
+
+  // ── Realisations page ──────────────────────────────────────────────────────────
+  realisations: {
+    pageTitle: 'Our Projects',
+    pageSubtitle: 'Exceptional projects, at the heart of Africa',
+    historyTitle: 'A place rich in history',
+    zonesTitle: 'Four zones, a major urban hub',
+    imagesTitle: 'The project in pictures',
+    progressTitle: 'Construction progress',
+    progressSubtitle: 'Drag to follow the progress of the works',
+    developedBy: 'Developed by',
+    downloadBrochure: 'Download the brochure',
+  },
 };
 
 export default en;

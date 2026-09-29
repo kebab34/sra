@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { roomCategoriesData } from '../../data/content';
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import './Header.css';
 
 const NavDropdown = ({ label, to, children }) => {
@@ -103,6 +104,7 @@ const Header = () => {
           <Link to="/catalogues" className="nav-link">{t('nav.catalogues')}</Link>
           <Link to="/realisations" className="nav-link">{t('nav.realizations')}</Link>
           <Link to="/contact" className="nav-link">{t('nav.contact')}</Link>
+          <LanguageSwitcher />
         </nav>
 
         {/* Hamburger button */}
@@ -216,6 +218,7 @@ const Header = () => {
           <Link to="/catalogues" className="mobile-link" onClick={closeMenu}>{t('nav.catalogues')}</Link>
           <Link to="/realisations" className="mobile-link" onClick={closeMenu}>{t('nav.realizations')}</Link>
           <Link to="/contact" className="mobile-link" onClick={closeMenu}>{t('nav.contact')}</Link>
+          <LanguageSwitcher />
         </nav>
       )}
     </header>

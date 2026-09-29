@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { collectionsData } from '../../../data/collectionsData';
 import useReveal from '../../../hooks/useReveal';
 import useDragScroll from '../../../hooks/useDragScroll';
@@ -14,6 +15,7 @@ const getFeaturedCollections = () => {
 };
 
 const CollectionsShowcase = () => {
+  const { t } = useTranslation();
   const [collections] = useState(getFeaturedCollections);
   const [headerRef, headerInView] = useReveal();
   const { trackRef, dragHandlers, onClickCapture } = useDragScroll();
@@ -22,8 +24,8 @@ const CollectionsShowcase = () => {
     <section className="section collections-showcase">
       <div className={`section-header reveal ${headerInView ? 'in-view' : ''}`} ref={headerRef}>
         <div className="gold-line"></div>
-        <h2 className="section-title">Collections Signature</h2>
-        <p className="section-subtitle">Faites glisser pour explorer nos créations les plus emblématiques</p>
+        <h2 className="section-title">{t('collectionsShowcase.title')}</h2>
+        <p className="section-subtitle">{t('collectionsShowcase.subtitle')}</p>
       </div>
 
       <div className="collections-track" ref={trackRef} {...dragHandlers}>
@@ -56,7 +58,7 @@ const CollectionsShowcase = () => {
 
       <div className="featured-cta">
         <Link to="/collections" className="view-all-btn">
-          Voir toutes nos collections
+          {t('collectionsShowcase.viewAll')}
         </Link>
       </div>
     </section>

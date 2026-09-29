@@ -302,3 +302,45 @@
     height: 260px;
   }
 }
+
+@media (max-width: 480px) {
+  .realisations-header {
+    padding: 50px 20px 0;
+  }
+  .project-hero {
+    height: 45vh;
+    min-height: 320px;
+    margin-top: 40px;
+  }
+  .project-hero-overlay {
+    padding: 20px;
+  }
+  .project-hero-title {
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+  .project-status {
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+  .project-lead {
+    font-size: 17px;
+  }
+  .project-stats {
+    padding: 30px 20px;
+    gap: 24px;
+  }
+  .project-stat-value {
+    font-size: 26px;
+  }
+  .project-zone-card {
+    padding: 30px 18px;
+  }
+  .project-progress-card {
+    flex-basis: 250px;
+    height: 180px;
+  }
+  .project-footer {
+    padding: 40px 20px;
+  }
+}

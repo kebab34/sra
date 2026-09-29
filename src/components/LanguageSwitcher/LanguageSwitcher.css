@@ -1,0 +1,44 @@
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.lang-option {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 4px 2px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-family: inherit;
+  transition: color 0.3s ease;
+}
+
+.lang-option:hover {
+  color: #d4af37;
+}
+
+.lang-option.active {
+  color: #d4af37;
+  font-weight: 600;
+}
+
+.lang-separator {
+  color: #555;
+}
+
+/* Mobile menu variant */
+.mobile-nav .lang-switcher {
+  padding: 20px 0 10px;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.mobile-nav .lang-option {
+  font-size: 14px;
+  padding: 6px 10px;
+}
