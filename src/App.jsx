@@ -9,6 +9,7 @@ import './themes.css';
 
 const CollectionsPage        = lazy(() => import('./components/CollectionsPage/CollectionsPage'));
 const CataloguePage          = lazy(() => import('./components/CataloguePage/CataloguePage'));
+const RealisationsPage       = lazy(() => import('./components/RealisationsPage/RealisationsPage'));
 const ContactPage            = lazy(() => import('./components/ContactPage/ContactPage'));
 const CollectionDetailPage   = lazy(() => import('./components/CollectionDetailPage/CollectionDetailPage'));
 const ProductDetailPage      = lazy(() => import('./components/ProductDetailPage/ProductDetailPage'));
@@ -57,6 +58,7 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/collections" element={<CollectionsPage />} />
           <Route path="/catalogues" element={<CataloguePage />} />
+          <Route path="/realisations" element={<RealisationsPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/collection/:collectionName" element={<CollectionDetailPage />} />
           <Route path="/product/:productName" element={<ProductDetailPage />} />

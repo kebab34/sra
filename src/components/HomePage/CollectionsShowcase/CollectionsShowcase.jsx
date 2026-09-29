@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { collectionsData } from '../../../data/collectionsData';
 import useReveal from '../../../hooks/useReveal';
+import useDragScroll from '../../../hooks/useDragScroll';
 import './CollectionsShowcase.css';
 
 const FEATURED_COUNT = 12;
@@ -15,38 +16,7 @@ const getFeaturedCollections = () => {
 const CollectionsShowcase = () => {
   const [collections] = useState(getFeaturedCollections);
   const [headerRef, headerInView] = useReveal();
-  const trackRef = useRef(null);
-  const dragState = useRef({ isDown: false, startX: 0, scrollLeft: 0, moved: false });
-
-  const onPointerDown = (e) => {
-    const track = trackRef.current;
-    dragState.current = {
-      isDown: true,
-      startX: e.pageX - track.offsetLeft,
-      scrollLeft: track.scrollLeft,
-      moved: false
-    };
-    track.classList.add('dragging');
-  };
-
-  const onPointerMove = (e) => {
-    if (!dragState.current.isDown) return;
-    e.preventDefault();
-    const track = trackRef.current;
-    const x = e.pageX - track.offsetLeft;
-    const walk = x - dragState.current.startX;
-    if (Math.abs(walk) > 5) dragState.current.moved = true;
-    track.scrollLeft = dragState.current.scrollLeft - walk;
-  };
-
-  const endDrag = () => {
-    dragState.current.isDown = false;
-    trackRef.current?.classList.remove('dragging');
-  };
-
-  const onCardClick = (e) => {
-    if (dragState.current.moved) e.preventDefault();
-  };
+  const { trackRef, dragHandlers, onClickCapture } = useDragScroll();
 
   return (
     <section className="section collections-showcase">
@@ -56,20 +26,13 @@ const CollectionsShowcase = () => {
         <p className="section-subtitle">Faites glisser pour explorer nos créations les plus emblématiques</p>
       </div>
 
-      <div
-        className="collections-track"
-        ref={trackRef}
-        onMouseDown={onPointerDown}
-        onMouseMove={onPointerMove}
-        onMouseUp={endDrag}
-        onMouseLeave={endDrag}
-      >
+      <div className="collections-track" ref={trackRef} {...dragHandlers}>
         {collections.map(([name, data]) => (
           <Link
             key={name}
             to={`/collection/${encodeURIComponent(name)}`}
             className="collection-card"
-            onClickCapture={onCardClick}
+            onClickCapture={onClickCapture}
             draggable={false}
           >
             <div className="collection-image-wrapper">
