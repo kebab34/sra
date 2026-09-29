@@ -3,7 +3,7 @@ import SEO from '../components/SEO/SEO';
 import Carousel from '../components/HomePage/Carousel/Carousel';
 import RoomCategories from '../components/HomePage/RoomCategories/RoomCategories';
 import ProductCategories from '../components/HomePage/ProductCategories/ProductCategories';
-import FeaturedProducts from '../components/HomePage/FeaturedProducts/FeaturedProducts';
+import CollectionsShowcase from '../components/HomePage/CollectionsShowcase/CollectionsShowcase';
 import CTASection from '../components/HomePage/CTASection/CTASection';
 
 const HomePage = () => {
@@ -17,7 +17,7 @@ const HomePage = () => {
       <Carousel />
       <RoomCategories />
       <ProductCategories />
-      <FeaturedProducts />
+      <CollectionsShowcase />
       <CTASection />
     </>
   );

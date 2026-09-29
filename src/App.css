@@ -1,9 +1,36 @@
+:root {
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .app-container {
   font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
   margin: 0;
   padding: 0;
   background-color: #0a0a0a;
   color: #fff;
+}
+
+/* Scroll-reveal: fade + blur-up, triggered once an element enters the viewport */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  filter: blur(10px);
+  transition: opacity 1s var(--ease-reveal), transform 1s var(--ease-reveal), filter 1s var(--ease-reveal);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
 }
 
 /* Shared section styles */

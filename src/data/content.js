@@ -70,7 +70,7 @@ export const productCategoriesData = [
   {
     name: 'Bath Accessories',
     description: 'Mirrors, towel rails and design accessories for your space',
-    image: 'https://images.unsplash.com/photo-1620626011761-996317702b4b?w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=600&q=80',
     path: '/bain-accessoires'
   },
   {

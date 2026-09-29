@@ -2,13 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { productCategoriesData } from '../../../data/content';
+import useReveal from '../../../hooks/useReveal';
 import './ProductCategories.css';
 
 const ProductCategories = () => {
   const { t } = useTranslation();
+  const [headerRef, headerInView] = useReveal();
   return (
     <section className="dark-section">
-      <div className="pc-section-header">
+      <div className={`pc-section-header reveal ${headerInView ? 'in-view' : ''}`} ref={headerRef}>
         <div className="gold-line"></div>
         <h2 className="section-title">{t('home.expertises')}</h2>
         <p className="section-subtitle-light">{t('home.expertisesSubtitle')}</p>
