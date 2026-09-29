@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import SEO from '../SEO/SEO';
 import { sanitaireData, sanitaireCategories } from '../../data/sanitaireData';
 import './SanitairePage.css';
@@ -12,6 +13,7 @@ const COLORS = uniqueVals('Couleur');
 const TYPES  = uniqueVals('Type');
 
 const FilterDropdown = ({ title, options, active, onSelect }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
 
@@ -25,7 +27,7 @@ const FilterDropdown = ({ title, options, active, onSelect }) => {
           className={`san-dropdown-trigger ${open ? 'open' : ''}`}
           onClick={() => setOpen(o => !o)}
         >
-          <span>{active || 'Tous'}</span>
+          <span>{active || t('shop.all', 'Tous')}</span>
           <svg className="san-dropdown-arrow" viewBox="0 0 10 6">
             <path d="M0 0l5 6 5-6z" fill="currentColor"/>
           </svg>
@@ -35,7 +37,7 @@ const FilterDropdown = ({ title, options, active, onSelect }) => {
             {options.length > 6 && (
               <input
                 className="san-dropdown-search"
-                placeholder="Rechercher..."
+                placeholder={t('common.search', 'Rechercher...')}
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 autoFocus
@@ -46,7 +48,7 @@ const FilterDropdown = ({ title, options, active, onSelect }) => {
                 className={`san-dropdown-item ${!active ? 'active' : ''}`}
                 onClick={() => { onSelect(''); setOpen(false); setSearch(''); }}
               >
-                Tous
+                {t('shop.all', 'Tous')}
               </div>
               {filtered.map(opt => (
                 <div
@@ -66,6 +68,7 @@ const FilterDropdown = ({ title, options, active, onSelect }) => {
 };
 
 const SanitairePage = () => {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState('');
   const [activeSerie,    setActiveSerie]    = useState('');
   const [activeColor,    setActiveColor]    = useState('');
@@ -102,9 +105,9 @@ const SanitairePage = () => {
       />
       <div className="san-header">
         <div className="san-gold-line"></div>
-        <h2 className="san-title">SALLE DE BAIN</h2>
+        <h2 className="san-title">{t('categories.Salle de bain', 'SALLE DE BAIN').toUpperCase()}</h2>
         <p className="san-subtitle">
-          {filtered.length} produit{filtered.length > 1 ? 's' : ''} trouvé{filtered.length > 1 ? 's' : ''}
+          {t('shop.productsFoundCount', { count: filtered.length })}
         </p>
       </div>
 
@@ -112,35 +115,35 @@ const SanitairePage = () => {
         {/* ── Sidebar ─────────────────────────────────────── */}
         <aside className={`san-sidebar ${sidebarOpen ? 'open' : ''}`}>
           <div className="san-sidebar-header">
-            <h3 className="san-sidebar-title">FILTRES</h3>
+            <h3 className="san-sidebar-title">{t('shop.filters', 'FILTRES')}</h3>
             {hasFilters && (
-              <button className="san-clear-btn" onClick={clearAll}>Effacer tout</button>
+              <button className="san-clear-btn" onClick={clearAll}>{t('shop.clearAll', 'Effacer tout')}</button>
             )}
           </div>
 
           <FilterDropdown
-            title="CATÉGORIE"
+            title={t('shop.category', 'CATÉGORIE')}
             options={sanitaireCategories}
             active={activeCategory}
             onSelect={setActiveCategory}
           />
 
           <FilterDropdown
-            title="SÉRIE / COLLECTION"
+            title={t('shop.seriesCollection', 'SÉRIE / COLLECTION')}
             options={SERIES}
             active={activeSerie}
             onSelect={setActiveSerie}
           />
 
           <FilterDropdown
-            title="COULEUR"
+            title={t('shop.color', 'COULEUR')}
             options={COLORS}
             active={activeColor}
             onSelect={setActiveColor}
           />
 
           <FilterDropdown
-            title="TYPE DE PRODUIT"
+            title={t('shop.productType', 'TYPE DE PRODUIT')}
             options={TYPES}
             active={activeType}
             onSelect={setActiveType}
@@ -155,7 +158,7 @@ const SanitairePage = () => {
               {search         && <span className="san-tag">"{search}" <button onClick={() => setSearch('')}>×</button></span>}
             </div>
           )}
-          <button className="san-filters-close-btn" onClick={() => setSidebarOpen(false)}>Fermer</button>
+          <button className="san-filters-close-btn" onClick={() => setSidebarOpen(false)}>{t('shop.close', 'Fermer')}</button>
         </aside>
 
         {sidebarOpen && (
@@ -172,7 +175,7 @@ const SanitairePage = () => {
               </svg>
               <input
                 type="text"
-                placeholder="Rechercher un produit..."
+                placeholder={t('common.searchProduct', 'Rechercher un produit...')}
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 className="san-search-input"
@@ -207,8 +210,8 @@ const SanitairePage = () => {
 
           {filtered.length === 0 && (
             <div className="san-empty">
-              <p>Aucun produit trouvé.</p>
-              <button onClick={clearAll}>Réinitialiser les filtres</button>
+              <p>{t('shop.noProductsFound', 'Aucun produit trouvé.')}</p>
+              <button onClick={clearAll}>{t('shop.resetFilters', 'Réinitialiser les filtres')}</button>
             </div>
           )}
         </div>
@@ -218,7 +221,7 @@ const SanitairePage = () => {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
           <line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="14" y2="12"/><line x1="4" y1="18" x2="10" y2="18"/>
         </svg>
-        Filtres
+        {t('shop.filters', 'Filtres')}
         {[activeCategory, activeSerie, activeColor, activeType, search].filter(Boolean).length > 0 && (
           <span className="san-filters-fab-badge">{[activeCategory, activeSerie, activeColor, activeType, search].filter(Boolean).length}</span>
         )}

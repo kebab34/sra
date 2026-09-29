@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { menuiserieProducts, menuiserieCategories } from '../../data/menuiserieData';
 import './MenuiserieDetailPage.css';
 
 const MenuiserieDetailPage = () => {
+  const { t } = useTranslation();
   const { productId } = useParams();
   const [lightbox, setLightbox] = useState(false);
   const [variantIdx, setVariantIdx] = useState(0);
@@ -45,7 +47,7 @@ const MenuiserieDetailPage = () => {
     <section className="mdet-page">
       {/* Breadcrumb */}
       <div className="mdet-breadcrumb">
-        <Link to="/menuiserie" className="mdet-bread-link">Menuiserie</Link>
+        <Link to="/menuiserie" className="mdet-bread-link">{t('menuiserie.pageTitleCase', 'Menuiserie')}</Link>
         <span className="mdet-bread-sep">/</span>
         <Link to={`/menuiserie?cat=${product.mainCategory}`} className="mdet-bread-link">{catLabel}</Link>
         <span className="mdet-bread-sep">/</span>
@@ -58,7 +60,7 @@ const MenuiserieDetailPage = () => {
         <div
           className={`mdet-img-wrapper ${product.cover ? 'mdet-img-wrapper--cover' : ''}`}
           onClick={() => setLightbox(true)}
-          title="Voir en grand"
+          title={t('common.viewLarge', 'Voir en grand')}
         >
           <img
             src={displayImage}
@@ -100,7 +102,7 @@ const MenuiserieDetailPage = () => {
             )}
           </div>
           <button className="mdet-desc-toggle" onClick={() => setDescExpanded(e => !e)}>
-            {descExpanded ? 'Voir moins' : 'Voir plus'}
+            {descExpanded ? t('menuiserie.viewLess', 'Voir moins') : t('menuiserie.viewMore', 'Voir plus')}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="13" height="13"
               style={{ transform: descExpanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
               <path d="M6 9l6 6 6-6"/>
@@ -109,7 +111,7 @@ const MenuiserieDetailPage = () => {
 
           {displaySpecs && Object.keys(displaySpecs).length > 0 && (
             <div className="mdet-specs">
-              <h3 className="mdet-specs-title">CARACTÉRISTIQUES</h3>
+              <h3 className="mdet-specs-title">{t('menuiserie.specs', 'CARACTÉRISTIQUES')}</h3>
               <table className="mdet-specs-table">
                 <tbody>
                   {Object.entries(displaySpecs).map(([key, val]) => (
@@ -123,14 +125,14 @@ const MenuiserieDetailPage = () => {
             </div>
           )}
 
-          <Link to="/contact" className="mdet-cta">Demander un devis</Link>
+          <Link to="/contact" className="mdet-cta">{t('shop.requestQuote', 'Demander un devis')}</Link>
         </div>
       </div>
 
       {/* Similar products */}
       {similar.length > 0 && (
         <div className="mdet-similar">
-          <h3 className="mdet-similar-title">AUTRES PRODUITS</h3>
+          <h3 className="mdet-similar-title">{t('menuiserie.otherProducts', 'AUTRES PRODUITS')}</h3>
           <div className="mdet-similar-grid">
             {similar.map(p => (
               <Link key={p.id} to={`/menuiserie/${p.id}`} className="mdet-similar-card">
@@ -153,7 +155,7 @@ const MenuiserieDetailPage = () => {
       {/* Lightbox */}
       {lightbox && (
         <div className="mdet-lightbox" onClick={() => setLightbox(false)}>
-          <button className="mdet-lightbox-close" onClick={() => setLightbox(false)} aria-label="Fermer">
+          <button className="mdet-lightbox-close" onClick={() => setLightbox(false)} aria-label={t('shop.close', 'Fermer')}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="22" height="22">
               <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
             </svg>

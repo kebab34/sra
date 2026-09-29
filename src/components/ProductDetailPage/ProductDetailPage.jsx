@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useSearchParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { collectionsData } from '../../data/collectionsData';
 import './ProductDetailPage.css';
 
@@ -118,6 +119,7 @@ const extractTitle = (filepath) => {
 // Composant
 // ─────────────────────────────────────────────
 const ProductDetailPage = () => {
+  const { t } = useTranslation();
   const { productName } = useParams();
   const [searchParams] = useSearchParams();
   const [openAccordion, setOpenAccordion] = useState('options');
@@ -130,8 +132,8 @@ const ProductDetailPage = () => {
     return (
       <section className="product-detail-page">
         <div className="product-not-found">
-          <h2>Produit non trouvé</h2>
-          <Link to="/collections" className="back-link">Retour aux collections</Link>
+          <h2>{t('productDetail.notFound', 'Produit non trouvé')}</h2>
+          <Link to="/collections" className="back-link">{t('productDetail.backToCollections', 'Retour aux collections')}</Link>
         </div>
       </section>
     );
@@ -183,9 +185,9 @@ const ProductDetailPage = () => {
     <section className="product-detail-page">
       {/* Breadcrumb */}
       <div className="breadcrumb">
-        <Link to="/">Accueil</Link>
+        <Link to="/">{t('common.home', 'Accueil')}</Link>
         <span className="separator">/</span>
-        <Link to="/collections">Collections</Link>
+        <Link to="/collections">{t('collectionDetail.breadcrumbCollections', 'Collections')}</Link>
         <span className="separator">/</span>
         <Link to={`/collection/${encodeURIComponent(collectionName)}`}>{collectionName}</Link>
         <span className="separator">/</span>
@@ -208,7 +210,7 @@ const ProductDetailPage = () => {
                   className={`thumbnail-btn ${i === selectedFace ? 'active' : ''}`}
                   onClick={() => setSelectedFace(i)}
                 >
-                  <img src={face} alt={`Face ${i + 1}`} />
+                  <img src={face} alt={t('productDetail.faceAlt', { index: i + 1 })} />
                 </button>
               ))}
             </div>
@@ -223,7 +225,7 @@ const ProductDetailPage = () => {
                   to={`/product/${encodeURIComponent(collectionName)}?img=${i}`}
                   className={`thumbnail-btn ${i === imgIndex ? 'active' : ''}`}
                 >
-                  <img src={img} alt={`Vue ${i + 1}`} />
+                  <img src={img} alt={t('productDetail.viewAlt', { index: i + 1 })} />
                 </Link>
               ))}
             </div>
@@ -244,7 +246,7 @@ const ProductDetailPage = () => {
               className={`accordion-header ${openAccordion === 'options' ? 'active' : ''}`}
               onClick={() => toggleAccordion('options')}
             >
-              <span>Options du produit</span>
+              <span>{t('productDetail.optionsTitle', 'Options du produit')}</span>
               <svg className="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points={openAccordion === 'options' ? "18 15 12 9 6 15" : "6 9 12 15 18 9"} />
               </svg>
@@ -255,7 +257,7 @@ const ProductDetailPage = () => {
                 {/* Sélecteur de taille */}
                 {sizeVariants && sizeVariants.length > 1 && (
                   <div className="option-item option-item-full">
-                    <span className="option-label">Taille</span>
+                    <span className="option-label">{t('productDetail.sizeLabel', 'Taille')}</span>
                     <div className="size-buttons">
                       {sizeVariants.map((p) => (
                         <Link
@@ -273,7 +275,7 @@ const ProductDetailPage = () => {
                 {/* Sélecteur de couleur */}
                 {colorVariants && colorVariants.length > 1 && (
                   <div className="option-item option-item-full">
-                    <span className="option-label">Coloris</span>
+                    <span className="option-label">{t('productDetail.colorLabel', 'Coloris')}</span>
                     <div className="size-buttons">
                       {colorVariants.map((p) => (
                         <Link
@@ -291,7 +293,7 @@ const ProductDetailPage = () => {
                 {/* Finition */}
                 {(currentProduct?.specifications?.Finition || collData.commonSpecs?.finition) && (
                   <div className="option-item">
-                    <span className="option-label">Finition</span>
+                    <span className="option-label">{t('productDetail.finishLabel', 'Finition')}</span>
                     <span className="option-value">
                       {currentProduct?.specifications?.Finition || collData.commonSpecs?.finition}
                     </span>
@@ -307,7 +309,7 @@ const ProductDetailPage = () => {
               className={`accordion-header ${openAccordion === 'specs' ? 'active' : ''}`}
               onClick={() => toggleAccordion('specs')}
             >
-              <span>Caractéristiques techniques</span>
+              <span>{t('productDetail.technicalSpecsTitle', 'Caractéristiques techniques')}</span>
               <svg className="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points={openAccordion === 'specs' ? "18 15 12 9 6 15" : "6 9 12 15 18 9"} />
               </svg>
@@ -324,8 +326,8 @@ const ProductDetailPage = () => {
                 </div>
               ) : (
                 <div className="specs-pending">
-                  <p>Les caractéristiques techniques détaillées seront disponibles prochainement.</p>
-                  <p>Pour toute information, <Link to="/contact">contactez-nous</Link>.</p>
+                  <p>{t('productDetail.specsPendingText', 'Les caractéristiques techniques détaillées seront disponibles prochainement.')}</p>
+                  <p>{t('productDetail.specsPendingContact', 'Pour toute information,')} <Link to="/contact">{t('common.contact', 'contactez-nous')}</Link>.</p>
                 </div>
               )}
             </div>
@@ -338,7 +340,7 @@ const ProductDetailPage = () => {
                 className={`accordion-header ${openAccordion === 'packaging' ? 'active' : ''}`}
                 onClick={() => toggleAccordion('packaging')}
               >
-                <span>Emballage</span>
+                <span>{t('productDetail.packagingTitle', 'Emballage')}</span>
                 <svg className="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <polyline points={openAccordion === 'packaging' ? "18 15 12 9 6 15" : "6 9 12 15 18 9"} />
                 </svg>
@@ -363,7 +365,7 @@ const ProductDetailPage = () => {
                 className={`accordion-header ${openAccordion === 'docs' ? 'active' : ''}`}
                 onClick={() => toggleAccordion('docs')}
               >
-                <span>Documents</span>
+                <span>{t('productDetail.documentsTitle', 'Documents')}</span>
                 <svg className="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <polyline points={openAccordion === 'docs' ? "18 15 12 9 6 15" : "6 9 12 15 18 9"} />
                 </svg>
@@ -386,7 +388,7 @@ const ProductDetailPage = () => {
             </div>
           )}
 
-          <Link to="/contact" className="contact-btn">Demander un devis</Link>
+          <Link to="/contact" className="contact-btn">{t('productDetail.requestQuote', 'Demander un devis')}</Link>
         </div>
       </div>
     </section>

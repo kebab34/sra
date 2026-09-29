@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { tamamlayiciData } from '../../data/tamamlayiciData';
 import './TamamlayiciDetailPage.css';
 
 const TamamlayiciDetailPage = () => {
+  const { t } = useTranslation();
   const { productId } = useParams();
   const [lightbox, setLightbox] = useState(false);
 
@@ -13,8 +15,8 @@ const TamamlayiciDetailPage = () => {
     return (
       <section className="tdet-page">
         <div className="tdet-not-found">
-          <h2>Produit non trouvé</h2>
-          <Link to="/accessoires" className="tdet-back-link">Retour aux accessoires</Link>
+          <h2>{t('shop.productNotFound', 'Produit non trouvé')}</h2>
+          <Link to="/accessoires" className="tdet-back-link">{t('tamamlayici.backLink', 'Retour aux accessoires')}</Link>
         </div>
       </section>
     );
@@ -41,9 +43,9 @@ const TamamlayiciDetailPage = () => {
       )}
 
       <div className="tdet-breadcrumb">
-        <Link to="/">Accueil</Link>
+        <Link to="/">{t('shop.home', 'Accueil')}</Link>
         <span>/</span>
-        <Link to="/accessoires">Accessoires salle de bain</Link>
+        <Link to="/accessoires">{t('tamamlayici.pageTitleCase', 'Accessoires salle de bain')}</Link>
         <span>/</span>
         <span>{product.name}</span>
       </div>
@@ -78,7 +80,7 @@ const TamamlayiciDetailPage = () => {
               </div>
             ))}
             <div className="tdet-spec-row">
-              <span className="tdet-spec-label">Marque</span>
+              <span className="tdet-spec-label">{t('shop.brand', 'Marque')}</span>
               <span className="tdet-spec-value">Bien Seramik</span>
             </div>
           </div>
@@ -86,8 +88,7 @@ const TamamlayiciDetailPage = () => {
           <div className="tdet-divider"></div>
 
           <p className="tdet-desc">
-            Accessoire de salle de bain de qualité supérieure.
-            Pour plus d'informations ou pour obtenir un devis, contactez notre showroom.
+            {t('tamamlayici.description', "Accessoire de salle de bain de qualité supérieure. Pour plus d'informations ou pour obtenir un devis, contactez notre showroom.")}
           </p>
 
           <div className="tdet-actions">
@@ -98,11 +99,11 @@ const TamamlayiciDetailPage = () => {
                   <polyline points="7 10 12 15 17 10"/>
                   <line x1="12" y1="15" x2="12" y2="3"/>
                 </svg>
-                Fiche produit (.rar)
+                {t('shop.productSheet', 'Fiche produit (.rar)')}
               </a>
             )}
             <Link to="/contact" className="tdet-contact-btn">
-              Demander un devis
+              {t('shop.requestQuote', 'Demander un devis')}
             </Link>
           </div>
         </div>
@@ -112,7 +113,7 @@ const TamamlayiciDetailPage = () => {
         <div className="tdet-similar">
           <div className="tdet-section-header">
             <div className="tdet-gold-line"></div>
-            <h2 className="tdet-section-title">PRODUITS SIMILAIRES</h2>
+            <h2 className="tdet-section-title">{t('shop.similarProducts', 'PRODUITS SIMILAIRES')}</h2>
           </div>
           <div className="tdet-similar-grid">
             {similar.map(p => (

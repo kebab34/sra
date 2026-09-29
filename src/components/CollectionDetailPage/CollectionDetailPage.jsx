@@ -51,7 +51,7 @@ const CollectionDetailPage = () => {
     return (
       <section className="cdp">
         <div className="cdp-not-found">
-          <h2>Collection non trouvée</h2>
+          <h2>{t('collectionDetail.notFound', 'Collection non trouvée')}</h2>
           <Link to="/collections" className="cdp-back-btn">{t('collectionDetail.back')}</Link>
         </div>
       </section>
@@ -97,7 +97,7 @@ const CollectionDetailPage = () => {
           </button>
           <img
             src={lightbox.images[lightbox.index]}
-            alt="Vue agrandie"
+            alt={t('collectionDetail.enlargedView', 'Vue agrandie')}
             className="cdp-lb-img"
             onClick={e => e.stopPropagation()}
           />
@@ -140,12 +140,12 @@ const CollectionDetailPage = () => {
           <div className="cdp-breadcrumb">
             <Link to="/" onClick={e => e.stopPropagation()}>{t('collectionDetail.home')}</Link>
             <span>/</span>
-            <Link to="/collections" onClick={e => e.stopPropagation()}>Collections</Link>
+            <Link to="/collections" onClick={e => e.stopPropagation()}>{t('collectionDetail.breadcrumbCollections', 'Collections')}</Link>
             <span>/</span>
             <span>{product.name}</span>
           </div>
           <div className="cdp-hero-content">
-            <span className="cdp-hero-label">Collection</span>
+            <span className="cdp-hero-label">{t('collectionDetail.collectionLabel', 'Collection')}</span>
             <h1 className="cdp-hero-title">{product.name}</h1>
             <div className="cdp-hero-line"><span className="cdp-hero-diamond">◆</span></div>
             <p className="cdp-hero-sub">{product.categories.map(c => t(`roomCategories.${c}`, c)).join(' · ')}</p>
@@ -168,7 +168,7 @@ const CollectionDetailPage = () => {
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="16" height="16">
                 <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
               </svg>
-              <span>{renders.length > 1 ? `${renders.length} vues` : t('collectionDetail.viewRender')}</span>
+              <span>{renders.length > 1 ? t('collectionDetail.viewsCount', '{{count}} vues', { count: renders.length }) : t('collectionDetail.viewRender')}</span>
             </div>
           </div>
         </div>
@@ -205,7 +205,7 @@ const CollectionDetailPage = () => {
                       onError={e => { if (e.target.src !== mainImage) e.target.src = mainImage; }} />
                     <div className="cdp-card-hover">
                       {prod.faces && prod.faces.filter(f => f && f.trim() !== '').length > 1 && (
-                        <span className="cdp-faces-count">{prod.faces.filter(f => f && f.trim() !== '').length} faces</span>
+                        <span className="cdp-faces-count">{t('collectionDetail.facesCount', '{{count}} faces', { count: prod.faces.filter(f => f && f.trim() !== '').length })}</span>
                       )}
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28">
                         <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
@@ -228,7 +228,7 @@ const CollectionDetailPage = () => {
               {(collData.images || [product.image]).map((img, i) => (
                 <div key={i} className="cdp-card" onClick={() => setLightbox({ images: [img], index: 0 })}>
                   <div className="cdp-card-img">
-                    <img src={img} alt={`Vue ${i + 1}`} loading="lazy" />
+                    <img src={img} alt={`${t('collectionDetail.viewLabel', 'Vue')} ${i + 1}`} loading="lazy" />
                     <div className="cdp-card-hover">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28">
                         <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>

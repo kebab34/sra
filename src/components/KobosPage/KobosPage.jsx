@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import SEO from '../SEO/SEO';
 import { kobosData } from '../../data/kobosData';
 import './KobosPage.css';
@@ -7,6 +8,7 @@ import './KobosPage.css';
 const allColors = [...new Set(kobosData.flatMap(p => p.colors))].filter(Boolean).sort();
 
 const KobosPage = () => {
+  const { t } = useTranslation();
   const [activeColor, setActiveColor] = useState('');
   const [search, setSearch] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -26,9 +28,9 @@ const KobosPage = () => {
       />
       <div className="kobos-header">
         <div className="kobos-gold-line"></div>
-        <h2 className="kobos-title">MEUBLES DE SALLE DE BAIN</h2>
+        <h2 className="kobos-title">{t('kobos.pageTitle', 'MEUBLES DE SALLE DE BAIN')}</h2>
         <p className="kobos-subtitle">
-          {filtered.length} collection{filtered.length > 1 ? 's' : ''} disponible{filtered.length > 1 ? 's' : ''}
+          {t('kobos.availableCount', { count: filtered.length })}
         </p>
       </div>
 
@@ -36,21 +38,21 @@ const KobosPage = () => {
         {/* Sidebar */}
         <aside className={`kobos-sidebar ${sidebarOpen ? 'open' : ''}`}>
           <div className="kobos-sidebar-head">
-            <h3 className="kobos-sidebar-title">FILTRES</h3>
+            <h3 className="kobos-sidebar-title">{t('shop.filters', 'FILTRES')}</h3>
             {(activeColor || search) && (
               <button className="kobos-clear" onClick={() => { setActiveColor(''); setSearch(''); }}>
-                Effacer tout
+                {t('shop.clearAll', 'Effacer tout')}
               </button>
             )}
           </div>
 
           {/* Recherche */}
           <div className="kobos-filter-group">
-            <p className="kobos-filter-label">RECHERCHE</p>
+            <p className="kobos-filter-label">{t('cuisine.search', 'RECHERCHE')}</p>
             <div className="kobos-search">
               <input
                 type="text"
-                placeholder="Nom de la collection..."
+                placeholder={t('kobos.searchPlaceholder', 'Nom de la collection...')}
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 className="kobos-search-input"
@@ -61,13 +63,13 @@ const KobosPage = () => {
 
           {/* Couleur */}
           <div className="kobos-filter-group">
-            <p className="kobos-filter-label">FINITION</p>
+            <p className="kobos-filter-label">{t('cuisine.finish', 'FINITION')}</p>
             <div className="kobos-color-list">
               <div
                 className={`kobos-color-item ${!activeColor ? 'active' : ''}`}
                 onClick={() => setActiveColor('')}
               >
-                Toutes
+                {t('shop.allFem', 'Toutes')}
               </div>
               {allColors.map(c => (
                 <div
@@ -98,7 +100,7 @@ const KobosPage = () => {
               )}
             </div>
           )}
-          <button className="kobos-filters-close-btn" onClick={() => setSidebarOpen(false)}>Fermer</button>
+          <button className="kobos-filters-close-btn" onClick={() => setSidebarOpen(false)}>{t('shop.close', 'Fermer')}</button>
         </aside>
 
         {sidebarOpen && (
@@ -119,7 +121,7 @@ const KobosPage = () => {
                     onError={e => { e.target.style.opacity = '0.2'; }}
                   />
                   {product.images.length > 1 && (
-                    <span className="kobos-img-count">{product.images.length} photos</span>
+                    <span className="kobos-img-count">{t('kobos.photosCount', { count: product.images.length })}</span>
                   )}
                   <div className="kobos-name-overlay">
                     <p className="kobos-name-mob">{product.name}</p>
@@ -142,8 +144,8 @@ const KobosPage = () => {
 
           {filtered.length === 0 && (
             <div className="kobos-empty">
-              <p>Aucune collection trouvée.</p>
-              <button onClick={() => { setActiveColor(''); setSearch(''); }}>Réinitialiser</button>
+              <p>{t('shop.noCollectionsFound', 'Aucune collection trouvée.')}</p>
+              <button onClick={() => { setActiveColor(''); setSearch(''); }}>{t('shop.reset', 'Réinitialiser')}</button>
             </div>
           )}
         </div>
@@ -153,7 +155,7 @@ const KobosPage = () => {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
           <line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="14" y2="12"/><line x1="4" y1="18" x2="10" y2="18"/>
         </svg>
-        Filtres
+        {t('shop.filters', 'Filtres')}
         {[activeColor, search].filter(Boolean).length > 0 && (
           <span className="kobos-filters-fab-badge">{[activeColor, search].filter(Boolean).length}</span>
         )}

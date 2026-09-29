@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import SEO from '../SEO/SEO';
 import emailjs from '@emailjs/browser';
+import { useTranslation } from 'react-i18next';
 import './ContactPage.css';
 
 const EMAILJS_SERVICE_ID = 'service_g7n44za';
@@ -8,6 +9,7 @@ const EMAILJS_TEMPLATE_ID = 'template_h21sury';
 const EMAILJS_PUBLIC_KEY = '9tPG038VQ7DsyqKAq';
 
 const ContactPage = () => {
+  const { t } = useTranslation();
   const formRef = useRef();
   const [formData, setFormData] = useState({
     name: '',
@@ -48,7 +50,7 @@ const ContactPage = () => {
       .catch((error) => {
         setIsSubmitting(false);
         setSubmitStatus('error');
-        setErrorMessage('An error occurred. Please try again or contact us directly.');
+        setErrorMessage(t('contact.error', 'An error occurred. Please try again or contact us directly.'));
         console.error('EmailJS Error:', error);
         setTimeout(() => setSubmitStatus(null), 5000);
       });
@@ -63,13 +65,13 @@ const ContactPage = () => {
       />
       <div className="contact-header">
         <div className="gold-line"></div>
-        <h2 className="contact-title">CONTACT US</h2>
-        <p className="contact-subtitle">Our team is available to answer all your enquiries</p>
+        <h2 className="contact-title">{t('contact.title', 'CONTACT US')}</h2>
+        <p className="contact-subtitle">{t('contact.subtitle', 'Our team is available to answer all your enquiries')}</p>
       </div>
 
       <div className="contact-content">
         <div className="contact-info">
-          <h3 className="info-title">Our Details</h3>
+          <h3 className="info-title">{t('contact.ourDetails', 'Our Details')}</h3>
 
           <div className="info-item">
             <div className="info-icon">
@@ -79,7 +81,7 @@ const ContactPage = () => {
               </svg>
             </div>
             <div className="info-content">
-              <h4>Address</h4>
+              <h4>{t('contact.address', 'Address')}</h4>
               <p>Latifa Tower B2007</p>
               <p>Sheikh Zayed Road</p>
               <p>Dubai, UAE</p>
@@ -93,7 +95,7 @@ const ContactPage = () => {
               </svg>
             </div>
             <div className="info-content">
-              <h4>Phone</h4>
+              <h4>{t('contact.phone', 'Phone')}</h4>
               <a href="tel:+971504802902">+971 50 480 2902</a>
             </div>
           </div>
@@ -106,7 +108,7 @@ const ContactPage = () => {
               </svg>
             </div>
             <div className="info-content">
-              <h4>Email</h4>
+              <h4>{t('contact.email', 'Email')}</h4>
               <a href="mailto:contact@sraglobaltrading.com">contact@sraglobaltrading.com</a>
             </div>
           </div>
@@ -119,35 +121,35 @@ const ContactPage = () => {
               </svg>
             </div>
             <div className="info-content">
-              <h4>Business Hours</h4>
+              <h4>{t('contact.businessHours', 'Business Hours')}</h4>
               <div className="horaires">
                 <div className="horaire-row">
-                  <span className="jour">Monday</span>
+                  <span className="jour">{t('contact.days.monday', 'Monday')}</span>
                   <span className="heures">09:00 – 18:00</span>
                 </div>
                 <div className="horaire-row">
-                  <span className="jour">Tuesday</span>
+                  <span className="jour">{t('contact.days.tuesday', 'Tuesday')}</span>
                   <span className="heures">09:00 – 18:00</span>
                 </div>
                 <div className="horaire-row">
-                  <span className="jour">Wednesday</span>
+                  <span className="jour">{t('contact.days.wednesday', 'Wednesday')}</span>
                   <span className="heures">09:00 – 18:00</span>
                 </div>
                 <div className="horaire-row">
-                  <span className="jour">Thursday</span>
+                  <span className="jour">{t('contact.days.thursday', 'Thursday')}</span>
                   <span className="heures">09:00 – 18:00</span>
                 </div>
                 <div className="horaire-row">
-                  <span className="jour">Friday</span>
+                  <span className="jour">{t('contact.days.friday', 'Friday')}</span>
                   <span className="heures">09:00 – 13:00</span>
                 </div>
                 <div className="horaire-row">
-                  <span className="jour">Saturday</span>
+                  <span className="jour">{t('contact.days.saturday', 'Saturday')}</span>
                   <span className="heures">09:00 – 14:00</span>
                 </div>
                 <div className="horaire-row ferme">
-                  <span className="jour">Sunday</span>
-                  <span className="heures">Closed</span>
+                  <span className="jour">{t('contact.days.sunday', 'Sunday')}</span>
+                  <span className="heures">{t('contact.closed', 'Closed')}</span>
                 </div>
               </div>
             </div>
@@ -155,11 +157,11 @@ const ContactPage = () => {
         </div>
 
         <div className="contact-form-container">
-          <h3 className="form-title">Send us a Message</h3>
+          <h3 className="form-title">{t('contact.sendMessage', 'Send us a Message')}</h3>
 
           {submitStatus === 'success' && (
             <div className="success-message">
-              Your message has been sent successfully. We will get back to you shortly.
+              {t('contact.successMessage', 'Your message has been sent successfully. We will get back to you shortly.')}
             </div>
           )}
 
@@ -172,7 +174,7 @@ const ContactPage = () => {
           <form ref={formRef} className="contact-form" onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-group">
-                <label htmlFor="name">Full Name *</label>
+                <label htmlFor="name">{t('contact.fullName', 'Full Name')} *</label>
                 <input
                   type="text"
                   id="name"
@@ -183,7 +185,7 @@ const ContactPage = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="email">Email *</label>
+                <label htmlFor="email">{t('contact.email', 'Email')} *</label>
                 <input
                   type="email"
                   id="email"
@@ -197,7 +199,7 @@ const ContactPage = () => {
 
             <div className="form-row">
               <div className="form-group">
-                <label htmlFor="phone">Phone</label>
+                <label htmlFor="phone">{t('contact.phone', 'Phone')}</label>
                 <input
                   type="tel"
                   id="phone"
@@ -207,7 +209,7 @@ const ContactPage = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="subject">Subject *</label>
+                <label htmlFor="subject">{t('contact.subject', 'Subject')} *</label>
                 <input
                   type="text"
                   id="subject"
@@ -220,7 +222,7 @@ const ContactPage = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="message">Message *</label>
+              <label htmlFor="message">{t('contact.message', 'Message')} *</label>
               <textarea
                 id="message"
                 name="message"
@@ -232,7 +234,7 @@ const ContactPage = () => {
             </div>
 
             <button type="submit" className="submit-btn" disabled={isSubmitting}>
-              {isSubmitting ? 'Sending...' : 'Send Message'}
+              {isSubmitting ? t('contact.sending', 'Sending...') : t('contact.sendMessageBtn', 'Send Message')}
             </button>
           </form>
         </div>

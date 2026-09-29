@@ -1,10 +1,12 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import SEO from '../SEO/SEO';
 import { menuiserieCategories, menuiserieProducts } from '../../data/menuiserieData';
 import './MenuiseriePage.css';
 
 const MenuiseriePage = () => {
+  const { t } = useTranslation();
   const location = useLocation();
 
   const [activeCat, setActiveCat]       = useState('');
@@ -69,8 +71,8 @@ const MenuiseriePage = () => {
       {/* ── Header ─────────────────────────────────────────────── */}
       <div className="men-header">
         <div className="men-gold-line"></div>
-        <h1 className="men-title">MENUISERIE</h1>
-        <p className="men-subtitle">Fenêtres, portes et solutions sur mesure</p>
+        <h1 className="men-title">{t('menuiserie.pageTitle', 'MENUISERIE')}</h1>
+        <p className="men-subtitle">{t('menuiserie.subtitle', 'Fenêtres, portes et solutions sur mesure')}</p>
       </div>
 
       {/* ── Catégories principales ──────────────────────────────── */}
@@ -80,7 +82,7 @@ const MenuiseriePage = () => {
             className={`men-cat-btn ${!activeCat ? 'active' : ''}`}
             onClick={() => handleMainCat('')}
           >
-            Tous
+            {t('shop.all', 'Tous')}
           </button>
           {menuiserieCategories.map(cat => (
             <button
@@ -102,7 +104,7 @@ const MenuiseriePage = () => {
               className={`men-subcat-btn ${!activeSubCat ? 'active' : ''}`}
               onClick={() => setActiveSubCat('')}
             >
-              Tout
+              {t('shop.allNeutral', 'Tout')}
             </button>
             {subCats.map(sc => (
               <button
@@ -125,7 +127,7 @@ const MenuiseriePage = () => {
           </svg>
           <input
             type="text"
-            placeholder="Rechercher un produit..."
+            placeholder={t('common.searchProduct', 'Rechercher un produit...')}
             value={search}
             onChange={e => setSearch(e.target.value)}
             className="men-search-input"
@@ -137,10 +139,10 @@ const MenuiseriePage = () => {
 
         <div className="men-toolbar-right">
           <span className="men-count">
-            {filtered.length} produit{filtered.length > 1 ? 's' : ''}
+            {t('menuiserie.productCount', { count: filtered.length })}
           </span>
           {hasFilters && (
-            <button className="men-clear-btn" onClick={clearAll}>Tout effacer</button>
+            <button className="men-clear-btn" onClick={clearAll}>{t('menuiserie.clearAll', 'Tout effacer')}</button>
           )}
         </div>
       </div>
@@ -197,8 +199,8 @@ const MenuiseriePage = () => {
 
       {filtered.length === 0 && (
         <div className="men-empty">
-          <p>Aucun produit trouvé.</p>
-          <button onClick={clearAll}>Réinitialiser les filtres</button>
+          <p>{t('shop.noProductsFound', 'Aucun produit trouvé.')}</p>
+          <button onClick={clearAll}>{t('shop.resetFilters', 'Réinitialiser les filtres')}</button>
         </div>
       )}
     </section>

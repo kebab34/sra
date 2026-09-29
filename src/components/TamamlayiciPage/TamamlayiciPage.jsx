@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import SEO from '../SEO/SEO';
 import { tamamlayiciData, tamamlayiciCategories } from '../../data/tamamlayiciData';
 import './TamamlayiciPage.css';
 
 const TamamlayiciPage = () => {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState('');
   const [search, setSearch] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -24,9 +26,9 @@ const TamamlayiciPage = () => {
       />
       <div className="tamamlayici-header">
         <div className="tgold-line"></div>
-        <h2 className="tamamlayici-title">ACCESSOIRES SALLE DE BAIN</h2>
+        <h2 className="tamamlayici-title">{t('tamamlayici.pageTitle', 'ACCESSOIRES SALLE DE BAIN')}</h2>
         <p className="tamamlayici-subtitle">
-          {filtered.length} produit{filtered.length > 1 ? 's' : ''} trouvé{filtered.length > 1 ? 's' : ''}
+          {t('shop.productsFoundCount', { count: filtered.length })}
         </p>
       </div>
 
@@ -36,7 +38,7 @@ const TamamlayiciPage = () => {
             className={`tcat-btn ${activeCategory === '' ? 'active' : ''}`}
             onClick={() => setActiveCategory('')}
           >
-            Tout
+            {t('shop.allNeutral', 'Tout')}
           </button>
           {tamamlayiciCategories.map(cat => (
             <button
@@ -52,7 +54,7 @@ const TamamlayiciPage = () => {
         <div className="tamamlayici-search">
           <input
             type="text"
-            placeholder="Rechercher un produit..."
+            placeholder={t('common.searchProduct', 'Rechercher un produit...')}
             value={search}
             onChange={e => setSearch(e.target.value)}
             className="tsearch-input"
@@ -62,7 +64,7 @@ const TamamlayiciPage = () => {
           )}
         </div>
 
-        <button className="tamamlayici-filters-close-btn" onClick={() => setSidebarOpen(false)}>Fermer</button>
+        <button className="tamamlayici-filters-close-btn" onClick={() => setSidebarOpen(false)}>{t('shop.close', 'Fermer')}</button>
       </div>
 
       {sidebarOpen && (
@@ -95,9 +97,9 @@ const TamamlayiciPage = () => {
 
       {filtered.length === 0 && (
         <div className="tamamlayici-empty">
-          <p>Aucun produit trouvé.</p>
+          <p>{t('shop.noProductsFound', 'Aucun produit trouvé.')}</p>
           <button onClick={() => { setActiveCategory(''); setSearch(''); }}>
-            Réinitialiser
+            {t('shop.reset', 'Réinitialiser')}
           </button>
         </div>
       )}
@@ -106,7 +108,7 @@ const TamamlayiciPage = () => {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
           <line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="14" y2="12"/><line x1="4" y1="18" x2="10" y2="18"/>
         </svg>
-        Filtres
+        {t('shop.filters', 'Filtres')}
         {[activeCategory, search].filter(Boolean).length > 0 && (
           <span className="tamamlayici-filters-fab-badge">{[activeCategory, search].filter(Boolean).length}</span>
         )}

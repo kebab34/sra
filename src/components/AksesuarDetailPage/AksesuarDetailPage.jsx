@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { aksesuarData } from '../../data/aksesuarData';
 import './AksesuarDetailPage.css';
 
 const AksesuarDetailPage = () => {
+  const { t } = useTranslation();
   const { productId } = useParams();
   const [lightbox, setLightbox] = useState(false);
 
@@ -13,8 +15,8 @@ const AksesuarDetailPage = () => {
     return (
       <section className="aksd-page">
         <div className="aksd-not-found">
-          <h2>Produit non trouvé</h2>
-          <Link to="/bain-accessoires" className="aksd-back-link">Retour aux accessoires</Link>
+          <h2>{t('shop.productNotFound', 'Produit non trouvé')}</h2>
+          <Link to="/bain-accessoires" className="aksd-back-link">{t('aksesuar.backLink', 'Retour aux accessoires')}</Link>
         </div>
       </section>
     );
@@ -41,9 +43,9 @@ const AksesuarDetailPage = () => {
       )}
 
       <div className="aksd-breadcrumb">
-        <Link to="/">Accueil</Link>
+        <Link to="/">{t('shop.home', 'Accueil')}</Link>
         <span>/</span>
-        <Link to="/bain-accessoires">Accessoires Salle de Bain</Link>
+        <Link to="/bain-accessoires">{t('aksesuar.pageTitleCase', 'Accessoires Salle de Bain')}</Link>
         <span>/</span>
         <span>{product.name}</span>
       </div>
@@ -78,7 +80,7 @@ const AksesuarDetailPage = () => {
               </div>
             ))}
             <div className="aksd-spec-row">
-              <span className="aksd-spec-label">Marque</span>
+              <span className="aksd-spec-label">{t('shop.brand', 'Marque')}</span>
               <span className="aksd-spec-value">Bien Seramik</span>
             </div>
           </div>
@@ -86,8 +88,7 @@ const AksesuarDetailPage = () => {
           <div className="aksd-divider"></div>
 
           <p className="aksd-desc">
-            Accessoire de salle de bain de qualité supérieure, alliant design et fonctionnalité.
-            Pour plus d'informations ou pour obtenir un devis, contactez notre showroom.
+            {t('aksesuar.description', "Accessoire de salle de bain de qualité supérieure, alliant design et fonctionnalité. Pour plus d'informations ou pour obtenir un devis, contactez notre showroom.")}
           </p>
 
           <div className="aksd-actions">
@@ -98,11 +99,11 @@ const AksesuarDetailPage = () => {
                   <polyline points="7 10 12 15 17 10"/>
                   <line x1="12" y1="15" x2="12" y2="3"/>
                 </svg>
-                Fiche produit (.rar)
+                {t('shop.productSheet', 'Fiche produit (.rar)')}
               </a>
             )}
             <Link to="/contact" className="aksd-contact-btn">
-              Demander un devis
+              {t('shop.requestQuote', 'Demander un devis')}
             </Link>
           </div>
         </div>
@@ -112,7 +113,7 @@ const AksesuarDetailPage = () => {
         <div className="aksd-similar">
           <div className="aksd-section-header">
             <div className="aksd-gold-line"></div>
-            <h2 className="aksd-section-title">PRODUITS SIMILAIRES</h2>
+            <h2 className="aksd-section-title">{t('shop.similarProducts', 'PRODUITS SIMILAIRES')}</h2>
           </div>
           <div className="aksd-similar-grid">
             {similar.map(p => (

@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { sopranoData } from '../../data/sopranoData';
 import './SopranoPage.css';
 
@@ -7,6 +8,7 @@ const allStyles = [...new Set(sopranoData.map(p => p.style))].sort();
 const allColors = [...new Set(sopranoData.flatMap(p => p.colors))].filter(Boolean).sort();
 
 const SopranoPage = () => {
+  const { t } = useTranslation();
   const [activeStyle, setActiveStyle] = useState('');
   const [activeColor, setActiveColor] = useState('');
   const [search,      setSearch]      = useState('');
@@ -26,9 +28,9 @@ const SopranoPage = () => {
     <section className="sop-page">
       <div className="sop-header">
         <div className="sop-gold-line"></div>
-        <h2 className="sop-title">CUISINES SUR MESURE</h2>
+        <h2 className="sop-title">{t('soprano.pageTitle', 'CUISINES SUR MESURE')}</h2>
         <p className="sop-subtitle">
-          {filtered.length} modèle{filtered.length > 1 ? 's' : ''} disponible{filtered.length > 1 ? 's' : ''}
+          {t('soprano.availableCount', { count: filtered.length })}
         </p>
       </div>
 
@@ -36,19 +38,19 @@ const SopranoPage = () => {
         {/* Sidebar */}
         <aside className={`sop-sidebar ${sidebarOpen ? 'open' : ''}`}>
           <div className="sop-sidebar-head">
-            <h3 className="sop-sidebar-title">FILTRES</h3>
+            <h3 className="sop-sidebar-title">{t('shop.filters', 'FILTRES')}</h3>
             {hasFilters && (
-              <button className="sop-clear" onClick={clearAll}>Effacer tout</button>
+              <button className="sop-clear" onClick={clearAll}>{t('shop.clearAll', 'Effacer tout')}</button>
             )}
           </div>
 
           {/* Recherche */}
           <div className="sop-filter-group">
-            <p className="sop-filter-label">RECHERCHE</p>
+            <p className="sop-filter-label">{t('cuisine.search', 'RECHERCHE')}</p>
             <div className="sop-search">
               <input
                 type="text"
-                placeholder="Nom du modèle..."
+                placeholder={t('cuisine.searchPlaceholder', 'Nom du modèle...')}
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 className="sop-search-input"
@@ -59,9 +61,9 @@ const SopranoPage = () => {
 
           {/* Style */}
           <div className="sop-filter-group">
-            <p className="sop-filter-label">STYLE</p>
+            <p className="sop-filter-label">{t('cuisine.style', 'STYLE')}</p>
             <div className="sop-option-list">
-              <div className={`sop-option ${!activeStyle ? 'active' : ''}`} onClick={() => setActiveStyle('')}>Tous</div>
+              <div className={`sop-option ${!activeStyle ? 'active' : ''}`} onClick={() => setActiveStyle('')}>{t('shop.all', 'Tous')}</div>
               {allStyles.map(s => (
                 <div key={s} className={`sop-option ${activeStyle === s ? 'active' : ''}`} onClick={() => setActiveStyle(s)}>{s}</div>
               ))}
@@ -70,9 +72,9 @@ const SopranoPage = () => {
 
           {/* Finition */}
           <div className="sop-filter-group">
-            <p className="sop-filter-label">FINITION</p>
+            <p className="sop-filter-label">{t('cuisine.finish', 'FINITION')}</p>
             <div className="sop-option-list">
-              <div className={`sop-option ${!activeColor ? 'active' : ''}`} onClick={() => setActiveColor('')}>Toutes</div>
+              <div className={`sop-option ${!activeColor ? 'active' : ''}`} onClick={() => setActiveColor('')}>{t('shop.allFem', 'Toutes')}</div>
               {allColors.map(c => (
                 <div key={c} className={`sop-option ${activeColor === c ? 'active' : ''}`} onClick={() => setActiveColor(c)}>{c}</div>
               ))}
@@ -87,7 +89,7 @@ const SopranoPage = () => {
               {search      && <span className="sop-tag">"{search}" <button onClick={() => setSearch('')}>×</button></span>}
             </div>
           )}
-          <button className="sop-filters-close-btn" onClick={() => setSidebarOpen(false)}>Fermer</button>
+          <button className="sop-filters-close-btn" onClick={() => setSidebarOpen(false)}>{t('shop.close', 'Fermer')}</button>
         </aside>
 
         {sidebarOpen && (
@@ -108,7 +110,7 @@ const SopranoPage = () => {
                     onError={e => { e.target.style.opacity = '0.2'; }}
                   />
                   {product.images.length > 1 && (
-                    <span className="sop-img-count">{product.images.length} photos</span>
+                    <span className="sop-img-count">{t('soprano.photosCount', { count: product.images.length })}</span>
                   )}
                   <span className="sop-style-badge">{product.style}</span>
                 </div>
@@ -124,8 +126,8 @@ const SopranoPage = () => {
 
           {filtered.length === 0 && (
             <div className="sop-empty">
-              <p>Aucun modèle trouvé.</p>
-              <button onClick={clearAll}>Réinitialiser</button>
+              <p>{t('shop.noModelsFound', 'Aucun modèle trouvé.')}</p>
+              <button onClick={clearAll}>{t('shop.reset', 'Réinitialiser')}</button>
             </div>
           )}
         </div>
@@ -135,7 +137,7 @@ const SopranoPage = () => {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
           <line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="14" y2="12"/><line x1="4" y1="18" x2="10" y2="18"/>
         </svg>
-        Filtres
+        {t('shop.filters', 'Filtres')}
         {[activeStyle, activeColor, search].filter(Boolean).length > 0 && (
           <span className="sop-filters-fab-badge">{[activeStyle, activeColor, search].filter(Boolean).length}</span>
         )}

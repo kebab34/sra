@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { sanitaireData } from '../../data/sanitaireData';
 import './SanitaireDetailPage.css';
 
 const SanitaireDetailPage = () => {
+  const { t } = useTranslation();
   const { productId } = useParams();
   const [lightbox, setLightbox] = useState(false);
 
@@ -13,8 +15,8 @@ const SanitaireDetailPage = () => {
     return (
       <section className="sanitaire-detail-page">
         <div className="sanitaire-not-found">
-          <h2>Produit non trouvé</h2>
-          <Link to="/sanitaire" className="sanitaire-back-link">Retour à la salle de bain</Link>
+          <h2>{t('shop.productNotFound', 'Produit non trouvé')}</h2>
+          <Link to="/sanitaire" className="sanitaire-back-link">{t('sanitaire.backLink', 'Retour à la salle de bain')}</Link>
         </div>
       </section>
     );
@@ -43,9 +45,9 @@ const SanitaireDetailPage = () => {
 
       {/* Breadcrumb */}
       <div className="sd-breadcrumb">
-        <Link to="/">Accueil</Link>
+        <Link to="/">{t('shop.home', 'Accueil')}</Link>
         <span>/</span>
-        <Link to="/sanitaire">Salle de Bain</Link>
+        <Link to="/sanitaire">{t('categories.Salle de bain', 'Salle de Bain')}</Link>
         <span>/</span>
         <span>{product.name}</span>
       </div>
@@ -83,7 +85,7 @@ const SanitaireDetailPage = () => {
               </div>
             ))}
             <div className="sd-spec-row">
-              <span className="sd-spec-label">Marque</span>
+              <span className="sd-spec-label">{t('shop.brand', 'Marque')}</span>
               <span className="sd-spec-value">Bien Seramik</span>
             </div>
           </div>
@@ -91,8 +93,7 @@ const SanitaireDetailPage = () => {
           <div className="sd-divider"></div>
 
           <p className="sd-desc">
-            Produit sanitaire de qualité supérieure, alliant design contemporain et durabilité.
-            Pour plus d'informations ou pour obtenir un devis, contactez notre showroom.
+            {t('sanitaire.description', "Produit sanitaire de qualité supérieure, alliant design contemporain et durabilité. Pour plus d'informations ou pour obtenir un devis, contactez notre showroom.")}
           </p>
 
           <div className="sd-actions">
@@ -103,11 +104,11 @@ const SanitaireDetailPage = () => {
                   <polyline points="7 10 12 15 17 10"/>
                   <line x1="12" y1="15" x2="12" y2="3"/>
                 </svg>
-                Fiche produit (.rar)
+                {t('shop.productSheet', 'Fiche produit (.rar)')}
               </a>
             )}
             <Link to="/contact" className="sd-contact-btn">
-              Demander un devis
+              {t('shop.requestQuote', 'Demander un devis')}
             </Link>
           </div>
         </div>
@@ -118,7 +119,7 @@ const SanitaireDetailPage = () => {
         <div className="sd-similar">
           <div className="sd-section-header">
             <div className="sd-gold-line"></div>
-            <h2 className="sd-section-title">PRODUITS SIMILAIRES</h2>
+            <h2 className="sd-section-title">{t('shop.similarProducts', 'PRODUITS SIMILAIRES')}</h2>
           </div>
           <div className="sd-similar-grid">
             {similar.map(p => (

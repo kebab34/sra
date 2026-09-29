@@ -1,37 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import SEO from '../SEO/SEO';
 import { seriesCovers } from '../../data/aderkaData';
 import './AderkaSeriesPage.css';
 
 const SERIES_LIST = [
-  {
-    slug: 'exclusive',
-    name: 'Exclusive',
-    desc: 'Lignes architecturales épurées',
-    count: 3,
-  },
-  {
-    slug: 'stoneline',
-    name: 'Stoneline',
-    desc: 'Finition effet pierre naturelle',
-    count: 3,
-  },
-  {
-    slug: 'elegance',
-    name: 'Elegance',
-    desc: 'Élégance contemporaine — 10 modèles',
-    count: 10,
-  },
-  {
-    slug: 'woodline',
-    name: 'Woodline',
-    desc: 'Texture bois sur châssis aluminium',
-    count: 3,
-  },
+  { slug: 'exclusive', name: 'Exclusive', descKey: 'exclusive', count: 3 },
+  { slug: 'stoneline', name: 'Stoneline', descKey: 'stoneline', count: 3 },
+  { slug: 'elegance', name: 'Elegance', descKey: 'elegance', count: 10 },
+  { slug: 'woodline', name: 'Woodline', descKey: 'woodline', count: 3 },
 ];
 
-const AderkaSeriesPage = () => (
+const AderkaSeriesPage = () => {
+  const { t } = useTranslation();
+  return (
   <section className="ase-page">
     <SEO
       title="Pivot Doors — Aderka Door Systems"
@@ -40,8 +23,8 @@ const AderkaSeriesPage = () => (
     />
     <div className="ase-header">
       <div className="ase-gold-line" />
-      <h1 className="ase-title">PORTES PIVOT ALUMINIUM</h1>
-      <p className="ase-subtitle">Aderka Door Systems — 4 séries, 19 modèles</p>
+      <h1 className="ase-title">{t('aderka.pageTitle', 'PORTES PIVOT ALUMINIUM')}</h1>
+      <p className="ase-subtitle">{t('aderka.pageSubtitle', 'Aderka Door Systems — 4 séries, 19 modèles')}</p>
     </div>
 
     <div className="ase-grid">
@@ -57,16 +40,17 @@ const AderkaSeriesPage = () => (
             />
             <div className="ase-overlay" />
             <div className="ase-info">
-              <span className="ase-count">{s.count} modèles</span>
+              <span className="ase-count">{t('aderka.modelsCount', { count: s.count })}</span>
               <h2 className="ase-name">{s.name.toUpperCase()}</h2>
-              <p className="ase-desc">{s.desc}</p>
-              <span className="ase-cta">Découvrir la série</span>
+              <p className="ase-desc">{t(`aderka.seriesDescriptions.${s.descKey}`)}</p>
+              <span className="ase-cta">{t('aderka.discoverSeries', 'Découvrir la série')}</span>
             </div>
           </div>
         </Link>
       ))}
     </div>
   </section>
-);
+  );
+};
 
 export default AderkaSeriesPage;

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { dusData } from '../../data/dusData';
 import './DusDetailPage.css';
 
 const DusDetailPage = () => {
+  const { t } = useTranslation();
   const { productId } = useParams();
   const [lightbox, setLightbox] = useState(false);
 
@@ -13,8 +15,8 @@ const DusDetailPage = () => {
     return (
       <section className="dusd-page">
         <div className="dusd-not-found">
-          <h2>Produit non trouvé</h2>
-          <Link to="/douche" className="dusd-back-link">Retour aux systèmes de douche</Link>
+          <h2>{t('shop.productNotFound', 'Produit non trouvé')}</h2>
+          <Link to="/douche" className="dusd-back-link">{t('dus.backLink', 'Retour aux systèmes de douche')}</Link>
         </div>
       </section>
     );
@@ -41,9 +43,9 @@ const DusDetailPage = () => {
       )}
 
       <div className="dusd-breadcrumb">
-        <Link to="/">Accueil</Link>
+        <Link to="/">{t('shop.home', 'Accueil')}</Link>
         <span>/</span>
-        <Link to="/douche">Systèmes de douche</Link>
+        <Link to="/douche">{t('dus.pageTitleCase', 'Systèmes de douche')}</Link>
         <span>/</span>
         <span>{product.name}</span>
       </div>
@@ -78,7 +80,7 @@ const DusDetailPage = () => {
               </div>
             ))}
             <div className="dusd-spec-row">
-              <span className="dusd-spec-label">Marque</span>
+              <span className="dusd-spec-label">{t('shop.brand', 'Marque')}</span>
               <span className="dusd-spec-value">Bien Seramik</span>
             </div>
           </div>
@@ -86,8 +88,7 @@ const DusDetailPage = () => {
           <div className="dusd-divider"></div>
 
           <p className="dusd-desc">
-            Système de douche de qualité supérieure, conçu pour allier esthétique et performance.
-            Pour plus d'informations ou pour obtenir un devis, contactez notre showroom.
+            {t('dus.description', "Système de douche de qualité supérieure, conçu pour allier esthétique et performance. Pour plus d'informations ou pour obtenir un devis, contactez notre showroom.")}
           </p>
 
           <div className="dusd-actions">
@@ -98,11 +99,11 @@ const DusDetailPage = () => {
                   <polyline points="7 10 12 15 17 10"/>
                   <line x1="12" y1="15" x2="12" y2="3"/>
                 </svg>
-                Fiche produit (.rar)
+                {t('shop.productSheet', 'Fiche produit (.rar)')}
               </a>
             )}
             <Link to="/contact" className="dusd-contact-btn">
-              Demander un devis
+              {t('shop.requestQuote', 'Demander un devis')}
             </Link>
           </div>
         </div>
@@ -112,7 +113,7 @@ const DusDetailPage = () => {
         <div className="dusd-similar">
           <div className="dusd-section-header">
             <div className="dusd-gold-line"></div>
-            <h2 className="dusd-section-title">PRODUITS SIMILAIRES</h2>
+            <h2 className="dusd-section-title">{t('shop.similarProducts', 'PRODUITS SIMILAIRES')}</h2>
           </div>
           <div className="dusd-similar-grid">
             {similar.map(p => (

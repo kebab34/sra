@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { productCategoriesData } from '../../data/content';
 import './ProductsPage.css';
 
 const ProductsPage = () => {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const activeCat = searchParams.get('cat');
   const [hovered, setHovered] = useState(null);
@@ -18,8 +20,8 @@ const ProductsPage = () => {
     <section className="products-page">
       <div className="products-page-header">
         <div className="gold-line"></div>
-        <h1 className="products-page-title">OUR PRODUCTS</h1>
-        <p className="products-page-subtitle">Premium quality products sourced from global partners</p>
+        <h1 className="products-page-title">{t('products.title', 'OUR PRODUCTS')}</h1>
+        <p className="products-page-subtitle">{t('products.subtitle', 'Premium quality products sourced from global partners')}</p>
       </div>
 
       {/* Category filter tabs */}
@@ -28,7 +30,7 @@ const ProductsPage = () => {
           to="/products"
           className={`filter-btn ${!activeCat ? 'active' : ''}`}
         >
-          All
+          {t('products.all', 'All')}
         </Link>
         {productCategoriesData.map((cat, i) => {
           const catKey = cat.path.split('cat=')[1] || '';
@@ -61,7 +63,7 @@ const ProductsPage = () => {
                 loading="lazy"
               />
               <div className={`product-page-overlay ${hovered === index ? 'visible' : ''}`}>
-                <span className="product-page-cta">EXPLORE</span>
+                <span className="product-page-cta">{t('products.explore', 'EXPLORE')}</span>
               </div>
             </div>
             <div className="product-page-info">
@@ -73,8 +75,8 @@ const ProductsPage = () => {
       </div>
 
       <div className="products-page-cta">
-        <p className="products-cta-text">Looking for a specific product? Contact our team directly.</p>
-        <Link to="/contact" className="view-all-btn">GET IN TOUCH</Link>
+        <p className="products-cta-text">{t('products.ctaText', 'Looking for a specific product? Contact our team directly.')}</p>
+        <Link to="/contact" className="view-all-btn">{t('products.getInTouch', 'GET IN TOUCH')}</Link>
       </div>
     </section>
   );

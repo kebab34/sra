@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { exterieurProducts, exterieurCategories } from '../../data/exterieurData';
 import './ExterieurDetailPage.css';
 
 const ExterieurDetailPage = () => {
+  const { t } = useTranslation();
   const { productId } = useParams();
   const [lightbox, setLightbox] = useState(false);
 
@@ -31,7 +33,7 @@ const ExterieurDetailPage = () => {
     <section className="edet-page">
       {/* Breadcrumb */}
       <div className="edet-breadcrumb">
-        <Link to="/exterieur" className="edet-bread-link">Extérieur</Link>
+        <Link to="/exterieur" className="edet-bread-link">{t('categories.Extérieur', 'Extérieur')}</Link>
         <span className="edet-bread-sep">/</span>
         <Link to={`/exterieur?cat=${product.mainCategory}`} className="edet-bread-link">{catLabel}</Link>
         <span className="edet-bread-sep">/</span>
@@ -44,7 +46,7 @@ const ExterieurDetailPage = () => {
         <div
           className="edet-img-wrapper"
           onClick={() => setLightbox(true)}
-          title="Voir en grand"
+          title={t('common.viewLarge', 'Voir en grand')}
         >
           <img
             src={product.image}
@@ -68,7 +70,7 @@ const ExterieurDetailPage = () => {
 
           {product.specs && Object.keys(product.specs).length > 0 && (
             <div className="edet-specs">
-              <h3 className="edet-specs-title">CARACTÉRISTIQUES</h3>
+              <h3 className="edet-specs-title">{t('exterieur.specs', 'CARACTÉRISTIQUES')}</h3>
               <table className="edet-specs-table">
                 <tbody>
                   {Object.entries(product.specs).map(([key, val]) => (
@@ -82,14 +84,14 @@ const ExterieurDetailPage = () => {
             </div>
           )}
 
-          <Link to="/contact" className="edet-cta">Demander un devis</Link>
+          <Link to="/contact" className="edet-cta">{t('shop.requestQuote', 'Demander un devis')}</Link>
         </div>
       </div>
 
       {/* Similar products */}
       {similar.length > 0 && (
         <div className="edet-similar">
-          <h3 className="edet-similar-title">AUTRES PRODUITS</h3>
+          <h3 className="edet-similar-title">{t('exterieur.otherProducts', 'AUTRES PRODUITS')}</h3>
           <div className="edet-similar-grid">
             {similar.map(p => (
               <Link key={p.id} to={`/exterieur/${p.id}`} className="edet-similar-card">
@@ -112,7 +114,7 @@ const ExterieurDetailPage = () => {
       {/* Lightbox */}
       {lightbox && (
         <div className="edet-lightbox" onClick={() => setLightbox(false)}>
-          <button className="edet-lightbox-close" onClick={() => setLightbox(false)} aria-label="Fermer">
+          <button className="edet-lightbox-close" onClick={() => setLightbox(false)} aria-label={t('shop.close', 'Fermer')}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="22" height="22">
               <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
             </svg>

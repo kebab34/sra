@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { menuiserieData } from '../../data/menuiserieData';
 import './MenuiserieSubPage.css';
 
 const MenuiserieSubPage = () => {
+  const { t } = useTranslation();
   const { slug } = useParams();
   const [activeSubcat, setActiveSubcat] = useState('');
   const [search, setSearch] = useState('');
@@ -14,8 +16,8 @@ const MenuiserieSubPage = () => {
     return (
       <section className="msub-page">
         <div className="msub-empty">
-          <p>Catégorie introuvable.</p>
-          <Link to="/menuiserie" className="msub-back-link">Retour à la menuiserie</Link>
+          <p>{t('menuiserie.categoryNotFound', 'Catégorie introuvable.')}</p>
+          <Link to="/menuiserie" className="msub-back-link">{t('menuiserie.backLink', 'Retour à la menuiserie')}</Link>
         </div>
       </section>
     );
@@ -33,7 +35,7 @@ const MenuiserieSubPage = () => {
     <section className="msub-page">
       <div className="msub-header">
         <div className="msub-breadcrumb">
-          <Link to="/menuiserie" className="msub-bread-link">Menuiserie</Link>
+          <Link to="/menuiserie" className="msub-bread-link">{t('menuiserie.pageTitleCase', 'Menuiserie')}</Link>
           <span className="msub-bread-sep">/</span>
           <span className="msub-bread-current">{section.title}</span>
         </div>
@@ -49,7 +51,7 @@ const MenuiserieSubPage = () => {
             className={`msub-filter-btn ${!activeSubcat ? 'active' : ''}`}
             onClick={() => setActiveSubcat('')}
           >
-            Tous
+            {t('shop.all', 'Tous')}
           </button>
           {subcats.map(sc => (
             <button
@@ -72,7 +74,7 @@ const MenuiserieSubPage = () => {
             </svg>
             <input
               type="text"
-              placeholder="Rechercher un modèle..."
+              placeholder={t('menuiserie.searchModelPlaceholder', 'Rechercher un modèle...')}
               value={search}
               onChange={e => setSearch(e.target.value)}
               className="msub-search-input"
@@ -110,9 +112,9 @@ const MenuiserieSubPage = () => {
 
       {filtered.length === 0 && (
         <div className="msub-empty">
-          <p>Aucun produit trouvé.</p>
+          <p>{t('shop.noProductsFound', 'Aucun produit trouvé.')}</p>
           <button onClick={() => { setSearch(''); setActiveSubcat(''); }}>
-            Réinitialiser les filtres
+            {t('shop.resetFilters', 'Réinitialiser les filtres')}
           </button>
         </div>
       )}

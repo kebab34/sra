@@ -1,86 +1,63 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { aderkaData } from '../../data/aderkaData';
 import './AderkaDetailPage.css';
 
-const SERIES_SPECS = {
-  Exclusive: {
-    finition: 'Laquée mat',
-    style: 'Architecturale',
-    description: "La série Exclusive incarne l'alliance entre rigueur architecturale et sophistication absolue. Ses lignes épurées et ses proportions maîtrisées en font un élément signature pour les entrées haut de gamme. Chaque modèle est conçu pour s'imposer comme une pièce maîtresse, alliant résistance et esthétique intemporelle.",
-  },
-  Stoneline: {
-    finition: 'Effet pierre naturelle',
-    style: 'Minérale',
-    description: "Stoneline réinvente la porte pivot en intégrant une finition effet pierre naturelle d'une authenticité remarquable. Ce traitement de surface unique confère à chaque porte un caractère minéral fort, transformant l'entrée en une déclaration artistique tout en conservant toutes les performances techniques de l'aluminium.",
-  },
-  Elegance: {
-    finition: 'Moderne élégante',
-    style: 'Contemporaine',
-    description: "La série Elegance décline la porte pivot en dix expressions distinctes, toutes animées par un même fil conducteur : l'élégance contemporaine sans ostentation. Des formes travaillées, des jeux de matières subtils et une finition soignée font de chaque modèle une invitation à l'entrée qui marque les esprits durablement.",
-  },
-  Woodline: {
-    finition: 'Effet bois authentique',
-    style: 'Naturelle',
-    description: "Woodline combine la chaleur du bois avec les performances inégalées de l'aluminium. Sa texture bois authentique est obtenue par un procédé de thermolaquage haute définition qui reproduit fidèlement les veines et nuances du bois naturel. Idéale pour les intérieurs modernes qui recherchent la chaleur sans les contraintes d'entretien.",
-  },
+const SERIES_SPEC_KEYS = {
+  Exclusive: 'exclusive',
+  Stoneline: 'stoneline',
+  Elegance: 'elegance',
+  Woodline: 'woodline',
 };
 
-const FEATURES = [
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-      </svg>
-    ),
-    label: 'Aluminium haute résistance',
-    sub: 'Profilés aluminium renforcés',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M3 12a9 9 0 1018 0A9 9 0 003 12z" />
-        <path d="M12 8v4l3 3" />
-      </svg>
-    ),
-    label: 'Système pivot haute performance',
-    sub: 'Rotation 360° — pivot dissimulé',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <rect x="3" y="3" width="18" height="18" rx="2" />
-        <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
-      </svg>
-    ),
-    label: 'Isolation thermique & acoustique',
-    sub: 'Rupture de pont thermique',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      </svg>
-    ),
-    label: 'Finitions sur-mesure',
-    sub: 'Coloris RAL au choix',
-  },
+const FEATURE_KEYS = ['aluminium', 'pivotSystem', 'insulation', 'customFinish'];
+
+const FEATURE_ICONS = [
+  (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+    </svg>
+  ),
+  (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M3 12a9 9 0 1018 0A9 9 0 003 12z" />
+      <path d="M12 8v4l3 3" />
+    </svg>
+  ),
+  (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
+    </svg>
+  ),
+  (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  ),
 ];
 
 const AderkaDetailPage = () => {
+  const { t } = useTranslation();
   const { series, slug } = useParams();
   const door = aderkaData.find(d => d.slug === slug);
 
   if (!door) {
     return (
       <div className="adkd-notfound">
-        <p>Modèle introuvable.</p>
-        <Link to="/portes-pivot">← Retour aux séries</Link>
+        <p>{t('aderka.notFound', 'Modèle introuvable.')}</p>
+        <Link to="/portes-pivot">← {t('aderka.backToSeries', 'Retour aux séries')}</Link>
       </div>
     );
   }
 
-  const specs = SERIES_SPECS[door.series] || SERIES_SPECS.Elegance;
+  const specKey = SERIES_SPEC_KEYS[door.series] || 'elegance';
+  const specs = {
+    finition: t(`aderka.seriesFinish.${specKey}`),
+    style: t(`aderka.seriesStyle.${specKey}`),
+    description: t(`aderka.seriesLongDescriptions.${specKey}`),
+  };
 
   const sameSeries = aderkaData.filter(d => d.slug !== slug && d.series === door.series);
   const otherSeries = aderkaData.filter(d => d.slug !== slug && d.series !== door.series);
@@ -105,9 +82,9 @@ const AderkaDetailPage = () => {
         <div className="adkd-hero-info-col">
           {/* Breadcrumb */}
           <nav className="adkd-breadcrumb">
-            <Link to="/">Accueil</Link>
+            <Link to="/">{t('aderka.breadcrumbHome', 'Accueil')}</Link>
             <span>›</span>
-            <Link to="/portes-pivot">Portes Pivot</Link>
+            <Link to="/portes-pivot">{t('aderka.breadcrumbPivotDoors', 'Portes Pivot')}</Link>
             <span>›</span>
             <Link to={`/portes-pivot/${series}`}>{door.series}</Link>
             <span>›</span>
@@ -123,38 +100,38 @@ const AderkaDetailPage = () => {
           {/* Specs grid */}
           <div className="adkd-specs">
             <div className="adkd-spec-item">
-              <span className="adkd-spec-label">Matériau</span>
-              <span className="adkd-spec-value">Aluminium</span>
+              <span className="adkd-spec-label">{t('aderka.material', 'Matériau')}</span>
+              <span className="adkd-spec-value">{t('aderka.materialAluminium', 'Aluminium')}</span>
             </div>
             <div className="adkd-spec-item">
-              <span className="adkd-spec-label">Finition</span>
+              <span className="adkd-spec-label">{t('aderka.finish', 'Finition')}</span>
               <span className="adkd-spec-value">{specs.finition}</span>
             </div>
             <div className="adkd-spec-item">
-              <span className="adkd-spec-label">Style</span>
+              <span className="adkd-spec-label">{t('aderka.style', 'Style')}</span>
               <span className="adkd-spec-value">{specs.style}</span>
             </div>
             <div className="adkd-spec-item">
-              <span className="adkd-spec-label">Dimensions</span>
-              <span className="adkd-spec-value">Sur-mesure</span>
+              <span className="adkd-spec-label">{t('aderka.dimensions', 'Dimensions')}</span>
+              <span className="adkd-spec-value">{t('aderka.dimensionsCustom', 'Sur-mesure')}</span>
             </div>
             <div className="adkd-spec-item">
-              <span className="adkd-spec-label">Série</span>
+              <span className="adkd-spec-label">{t('aderka.series', 'Série')}</span>
               <span className="adkd-spec-value">{door.series}</span>
             </div>
             <div className="adkd-spec-item">
-              <span className="adkd-spec-label">Usage</span>
-              <span className="adkd-spec-value">Extérieur</span>
+              <span className="adkd-spec-label">{t('aderka.usage', 'Usage')}</span>
+              <span className="adkd-spec-value">{t('aderka.usageExterior', 'Extérieur')}</span>
             </div>
           </div>
 
           {/* CTA */}
           <div className="adkd-cta">
             <Link to="/contact" className="adkd-btn-gold">
-              Demander un devis
+              {t('aderka.requestQuote', 'Demander un devis')}
             </Link>
             <Link to={`/portes-pivot/${series}`} className="adkd-btn-outline">
-              Série {door.series}
+              {t('aderka.seriesLinkPrefix', 'Série')} {door.series}
             </Link>
           </div>
         </div>
@@ -162,12 +139,12 @@ const AderkaDetailPage = () => {
 
       {/* ── Features bar ── */}
       <div className="adkd-features">
-        {FEATURES.map((f, i) => (
+        {FEATURE_KEYS.map((key, i) => (
           <div key={i} className="adkd-feature-item">
-            <div className="adkd-feature-icon">{f.icon}</div>
+            <div className="adkd-feature-icon">{FEATURE_ICONS[i]}</div>
             <div>
-              <p className="adkd-feature-label">{f.label}</p>
-              <p className="adkd-feature-sub">{f.sub}</p>
+              <p className="adkd-feature-label">{t(`aderka.features.${key}.label`)}</p>
+              <p className="adkd-feature-sub">{t(`aderka.features.${key}.sub`)}</p>
             </div>
           </div>
         ))}
@@ -178,7 +155,7 @@ const AderkaDetailPage = () => {
         <div className="adkd-related">
           <div className="adkd-related-header">
             <div className="adkd-gold-line" />
-            <h2 className="adkd-related-title">MODÈLES DE LA MÊME GAMME</h2>
+            <h2 className="adkd-related-title">{t('aderka.sameRangeModels', 'MODÈLES DE LA MÊME GAMME')}</h2>
           </div>
           <div className="adkd-related-grid">
             {related.map(r => (
@@ -186,7 +163,7 @@ const AderkaDetailPage = () => {
                 <div className="adkd-related-img-wrap">
                   <img src={r.image} alt={r.name} loading="lazy" />
                   <div className="adkd-related-overlay">
-                    <span>Voir le modèle</span>
+                    <span>{t('aderka.viewModel', 'Voir le modèle')}</span>
                   </div>
                 </div>
                 <div className="adkd-related-info">

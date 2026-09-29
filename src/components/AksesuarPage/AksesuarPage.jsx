@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import SEO from '../SEO/SEO';
 import { aksesuarData, aksesuarCategories } from '../../data/aksesuarData';
 import './AksesuarPage.css';
@@ -13,6 +14,7 @@ const COLORS  = uniqueVals('Couleur');
 const TYPES   = uniqueVals('Type');
 
 const FilterDropdown = ({ title, options, active, onSelect }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
 
@@ -26,7 +28,7 @@ const FilterDropdown = ({ title, options, active, onSelect }) => {
           className={`aks-dropdown-trigger ${open ? 'open' : ''}`}
           onClick={() => setOpen(o => !o)}
         >
-          <span>{active || 'Tous'}</span>
+          <span>{active || t('shop.all', 'Tous')}</span>
           <svg className="aks-dropdown-arrow" viewBox="0 0 10 6">
             <path d="M0 0l5 6 5-6z" fill="currentColor"/>
           </svg>
@@ -36,7 +38,7 @@ const FilterDropdown = ({ title, options, active, onSelect }) => {
             {options.length > 6 && (
               <input
                 className="aks-dropdown-search"
-                placeholder="Rechercher..."
+                placeholder={t('common.search', 'Rechercher...')}
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 autoFocus
@@ -47,7 +49,7 @@ const FilterDropdown = ({ title, options, active, onSelect }) => {
                 className={`aks-dropdown-item ${!active ? 'active' : ''}`}
                 onClick={() => { onSelect(''); setOpen(false); setSearch(''); }}
               >
-                Tous
+                {t('shop.all', 'Tous')}
               </div>
               {filtered.map(opt => (
                 <div
@@ -67,6 +69,7 @@ const FilterDropdown = ({ title, options, active, onSelect }) => {
 };
 
 const AksesuarPage = () => {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState('');
   const [activeSerie,    setActiveSerie]    = useState('');
   const [activeColor,    setActiveColor]    = useState('');
@@ -103,9 +106,9 @@ const AksesuarPage = () => {
       />
       <div className="aks-header">
         <div className="aks-gold-line"></div>
-        <h2 className="aks-title">ACCESSOIRES SALLE DE BAIN</h2>
+        <h2 className="aks-title">{t('aksesuar.pageTitle', 'ACCESSOIRES SALLE DE BAIN')}</h2>
         <p className="aks-subtitle">
-          {filtered.length} produit{filtered.length > 1 ? 's' : ''} trouvé{filtered.length > 1 ? 's' : ''}
+          {t('shop.productsFoundCount', { count: filtered.length })}
         </p>
       </div>
 
@@ -113,15 +116,15 @@ const AksesuarPage = () => {
         {/* ── Sidebar ─────────────────────────────────────── */}
         <aside className={`aks-sidebar ${sidebarOpen ? 'open' : ''}`}>
           <div className="aks-sidebar-header">
-            <h3 className="aks-sidebar-title">FILTRES</h3>
+            <h3 className="aks-sidebar-title">{t('shop.filters', 'FILTRES')}</h3>
             {hasFilters && (
-              <button className="aks-clear-btn" onClick={clearAll}>Effacer tout</button>
+              <button className="aks-clear-btn" onClick={clearAll}>{t('shop.clearAll', 'Effacer tout')}</button>
             )}
           </div>
 
           {/* Catégorie */}
           <FilterDropdown
-            title="CATÉGORIE"
+            title={t('shop.category', 'CATÉGORIE')}
             options={aksesuarCategories}
             active={activeCategory}
             onSelect={setActiveCategory}
@@ -129,7 +132,7 @@ const AksesuarPage = () => {
 
           {/* Série */}
           <FilterDropdown
-            title="SÉRIE / COLLECTION"
+            title={t('shop.seriesCollection', 'SÉRIE / COLLECTION')}
             options={SERIES}
             active={activeSerie}
             onSelect={setActiveSerie}
@@ -137,7 +140,7 @@ const AksesuarPage = () => {
 
           {/* Couleur */}
           <FilterDropdown
-            title="COULEUR / FINITION"
+            title={t('shop.colorFinish', 'COULEUR / FINITION')}
             options={COLORS}
             active={activeColor}
             onSelect={setActiveColor}
@@ -146,7 +149,7 @@ const AksesuarPage = () => {
           {/* Type */}
           {TYPES.length > 0 && (
             <FilterDropdown
-              title="TYPE DE PRODUIT"
+              title={t('shop.productType', 'TYPE DE PRODUIT')}
               options={TYPES}
               active={activeType}
               onSelect={setActiveType}
@@ -163,7 +166,7 @@ const AksesuarPage = () => {
               {search         && <span className="aks-tag">"{search}" <button onClick={() => setSearch('')}>×</button></span>}
             </div>
           )}
-          <button className="aks-filters-close-btn" onClick={() => setSidebarOpen(false)}>Fermer</button>
+          <button className="aks-filters-close-btn" onClick={() => setSidebarOpen(false)}>{t('shop.close', 'Fermer')}</button>
         </aside>
 
         {sidebarOpen && (
@@ -180,7 +183,7 @@ const AksesuarPage = () => {
               </svg>
               <input
                 type="text"
-                placeholder="Rechercher un produit..."
+                placeholder={t('common.searchProduct', 'Rechercher un produit...')}
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 className="aks-search-input"
@@ -215,8 +218,8 @@ const AksesuarPage = () => {
 
           {filtered.length === 0 && (
             <div className="aks-empty">
-              <p>Aucun produit trouvé.</p>
-              <button onClick={clearAll}>Réinitialiser les filtres</button>
+              <p>{t('shop.noProductsFound', 'Aucun produit trouvé.')}</p>
+              <button onClick={clearAll}>{t('shop.resetFilters', 'Réinitialiser les filtres')}</button>
             </div>
           )}
         </div>
@@ -226,7 +229,7 @@ const AksesuarPage = () => {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
           <line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="14" y2="12"/><line x1="4" y1="18" x2="10" y2="18"/>
         </svg>
-        Filtres
+        {t('shop.filters', 'Filtres')}
         {[activeCategory, activeSerie, activeColor, activeType, search].filter(Boolean).length > 0 && (
           <span className="aks-filters-fab-badge">{[activeCategory, activeSerie, activeColor, activeType, search].filter(Boolean).length}</span>
         )}

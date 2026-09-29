@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import './CataloguePage.css';
 import generalCatalogueImage from '../../image/catalogue/general.png';
 import boisCatalogueImage from '../../image/catalogue/bois.png';
@@ -40,12 +41,13 @@ const catalogues = [
 ];
 
 const CataloguePage = () => {
+  const { t } = useTranslation();
   return (
     <section className="catalogue-page">
       <div className="catalogue-header">
         <div className="gold-line"></div>
-        <h2 className="catalogue-title">NOS CATALOGUES</h2>
-        <p className="catalogue-subtitle">Téléchargez nos catalogues pour découvrir l'ensemble de nos collections</p>
+        <h2 className="catalogue-title">{t('catalogue.title', 'NOS CATALOGUES')}</h2>
+        <p className="catalogue-subtitle">{t('catalogue.subtitle', "Téléchargez nos catalogues pour découvrir l'ensemble de nos collections")}</p>
       </div>
 
       <div className="catalogue-grid">
@@ -67,7 +69,7 @@ const CataloguePage = () => {
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                   <circle cx="12" cy="12" r="3"/>
                 </svg>
-                <span>Voir le catalogue</span>
+                <span>{t('common.viewCatalogue')}</span>
               </div>
             </a>
             <div className="catalogue-info">
@@ -80,7 +82,7 @@ const CataloguePage = () => {
                 <svg className="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
                 </svg>
-                Télécharger
+                {t('common.download')}
               </a>
             </div>
           </div>

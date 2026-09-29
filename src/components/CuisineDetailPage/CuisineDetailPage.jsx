@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { cuisineData } from '../../data/cuisineData';
 import './CuisineDetailPage.css';
 
 const CuisineDetailPage = () => {
+  const { t } = useTranslation();
   const { productId } = useParams();
   const [lightbox, setLightbox] = useState(false);
 
@@ -13,8 +15,8 @@ const CuisineDetailPage = () => {
     return (
       <section className="cuisine-detail-page">
         <div className="cdet-not-found">
-          <h2>Modèle non trouvé</h2>
-          <Link to="/cuisines" className="cdet-back-link">Retour aux cuisines</Link>
+          <h2>{t('shop.modelNotFound', 'Modèle non trouvé')}</h2>
+          <Link to="/cuisines" className="cdet-back-link">{t('cuisine.backLink', 'Retour aux cuisines')}</Link>
         </div>
       </section>
     );
@@ -41,9 +43,9 @@ const CuisineDetailPage = () => {
 
       {/* Breadcrumb */}
       <div className="cdet-breadcrumb">
-        <Link to="/">Accueil</Link>
+        <Link to="/">{t('shop.home', 'Accueil')}</Link>
         <span>/</span>
-        <Link to="/cuisines">Cuisines</Link>
+        <Link to="/cuisines">{t('cuisine.pageTitleCase', 'Cuisines')}</Link>
         <span>/</span>
         <span>{product.name}</span>
       </div>
@@ -87,7 +89,7 @@ const CuisineDetailPage = () => {
 
           <div className="cdet-actions">
             <Link to="/contact" className="cdet-contact-btn">
-              Demander un devis
+              {t('shop.requestQuote', 'Demander un devis')}
             </Link>
           </div>
         </div>
@@ -98,7 +100,7 @@ const CuisineDetailPage = () => {
         <div className="cdet-similar">
           <div className="cdet-section-header">
             <div className="cdet-gold-line"></div>
-            <h2 className="cdet-section-title">DANS LE MÊME STYLE</h2>
+            <h2 className="cdet-section-title">{t('cuisine.sameStyle', 'DANS LE MÊME STYLE')}</h2>
           </div>
           <div className="cdet-similar-grid">
             {similar.map(p => (

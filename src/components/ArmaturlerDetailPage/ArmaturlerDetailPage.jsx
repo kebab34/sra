@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { armaturlerData } from '../../data/armaturlerData';
 import './ArmaturlerDetailPage.css';
 
 const ArmaturlerDetailPage = () => {
+  const { t } = useTranslation();
   const { productId } = useParams();
   const [lightbox, setLightbox] = useState(false);
 
@@ -13,8 +15,8 @@ const ArmaturlerDetailPage = () => {
     return (
       <section className="armd-page">
         <div className="armd-not-found">
-          <h2>Produit non trouvé</h2>
-          <Link to="/armaturler" className="armd-back-link">Retour à la robinetterie</Link>
+          <h2>{t('shop.productNotFound', 'Produit non trouvé')}</h2>
+          <Link to="/armaturler" className="armd-back-link">{t('armaturler.backLink', 'Retour à la robinetterie')}</Link>
         </div>
       </section>
     );
@@ -41,9 +43,9 @@ const ArmaturlerDetailPage = () => {
       )}
 
       <div className="armd-breadcrumb">
-        <Link to="/">Accueil</Link>
+        <Link to="/">{t('shop.home', 'Accueil')}</Link>
         <span>/</span>
-        <Link to="/armaturler">Robinetterie &amp; Douche</Link>
+        <Link to="/armaturler">{t('armaturler.pageTitleCase', 'Robinetterie & Douche')}</Link>
         <span>/</span>
         <span>{product.name}</span>
       </div>
@@ -78,7 +80,7 @@ const ArmaturlerDetailPage = () => {
               </div>
             ))}
             <div className="armd-spec-row">
-              <span className="armd-spec-label">Marque</span>
+              <span className="armd-spec-label">{t('shop.brand', 'Marque')}</span>
               <span className="armd-spec-value">Bien Seramik</span>
             </div>
           </div>
@@ -86,8 +88,7 @@ const ArmaturlerDetailPage = () => {
           <div className="armd-divider"></div>
 
           <p className="armd-desc">
-            Robinet de qualité supérieure, conçu pour allier esthétique et performance.
-            Pour plus d'informations ou pour obtenir un devis, contactez notre showroom.
+            {t('armaturler.description', "Robinet de qualité supérieure, conçu pour allier esthétique et performance. Pour plus d'informations ou pour obtenir un devis, contactez notre showroom.")}
           </p>
 
           <div className="armd-actions">
@@ -98,11 +99,11 @@ const ArmaturlerDetailPage = () => {
                   <polyline points="7 10 12 15 17 10"/>
                   <line x1="12" y1="15" x2="12" y2="3"/>
                 </svg>
-                Fiche produit (.rar)
+                {t('shop.productSheet', 'Fiche produit (.rar)')}
               </a>
             )}
             <Link to="/contact" className="armd-contact-btn">
-              Demander un devis
+              {t('shop.requestQuote', 'Demander un devis')}
             </Link>
           </div>
         </div>
@@ -112,7 +113,7 @@ const ArmaturlerDetailPage = () => {
         <div className="armd-similar">
           <div className="armd-section-header">
             <div className="armd-gold-line"></div>
-            <h2 className="armd-section-title">PRODUITS SIMILAIRES</h2>
+            <h2 className="armd-section-title">{t('shop.similarProducts', 'PRODUITS SIMILAIRES')}</h2>
           </div>
           <div className="armd-similar-grid">
             {similar.map(p => (
